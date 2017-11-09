@@ -1,0 +1,21 @@
+---
+- name: update csf custom regex
+  template: src=regex.custom.pm.j2 dest=/etc/csf/regex.custom.pm
+  tags: csfConfShared
+  when: csfExists.stat.exists and liverun
+
+- name: set smtp root tweak to off
+  shell: /usr/sbin/whmapi1 set_tweaksetting key=smtpmailgidonly value=0
+  tags: csfConfShared
+  when: csfExists.stat.exists and liverun
+
+- name: always restart csf
+  service: name=csf state=restarted
+  tags: csfConfShared
+  when: csfExists.stat.exists and liverun
+
+- name: restart lfd when csf is out of Testing mode
+  service: name=lfd state=restarted
+  tags: csfConfShared
+  when: csfTestMode == "0" and csfExists.stat.exists and liverun
+

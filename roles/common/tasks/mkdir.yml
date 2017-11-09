@@ -1,0 +1,16 @@
+---
+# my future comment
+  - name: "create roles directories {{ destinationDir }}/roles/{{ roledirs.shortname }}"
+    file:
+      path: "{{ destinationDir }}/roles/{{ roledirs.shortname }}"
+      state: directory
+
+  - name: "create subdirectories under {{ destinationDir }}/roles/{{ roledirs.shortname }}"
+    file:
+      path: "{{ destinationDir }}/roles/{{ roledirs.shortname }}/{{ item }}"
+      state: directory
+    with_items:
+     - defaults
+     - vars
+     - templates
+     - tasks

@@ -1,0 +1,11 @@
+*.retry
+host_vars/*
+group_vars/*
+{% for rolevars in roles %}
+roles/{{ rolevars.shortname }}/vars/*
+{% endfor %}
+{% for inventoryfiles in logicalgroups %}
+{{ inventoryfiles.shortname }}
+{% endfor %}
+
+

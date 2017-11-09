@@ -1,0 +1,42 @@
+---
+#File: smnp.yml
+- name: Install net-snmp
+  yum: name=net-snmp state=installed
+  tags: snmp
+  when: liverun
+
+- name: Install net-snmp-utils
+  yum: name=net-snmp-utils state=installed
+  tags: snmp
+  when: liverun
+
+- name: update snmpd.conf
+  template: src=snmpd.conf.j2 dest=/etc/snmp/snmpd.conf
+  tags: snmp
+  when: liverun
+
+- name: enable snmpd service
+  service: name=snmpd enabled=yes
+  tags: snmp
+  when: liverun
+
+- name: always restart snmpd
+  service: name=snmpd state=restarted
+  tags: snmp
+  when: liverun
+
+- name: update rsyslog remote
+  template: src=00-remote.conf.j2 dest=/etc/rsyslog.d/00-remote.conf
+  tags: rsyslog
+  when: liverun
+
+- name: Make sure spool directory exists
+  file: path=/var/spool/rsyslog/ state=directory
+  tags: rsyslog
+  when: liverun
+
+- name: always restart rsyslog
+  service: name=rsyslog state=restarted
+  tags: rsyslog
+  when: liverun
+

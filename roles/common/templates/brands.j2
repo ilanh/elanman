@@ -1,0 +1,14 @@
+---
+## main variables for {{ item.shortname }}
+#
+# All values that are supposed to be at this level 
+{% for section in configsections %}
+
+# section {{ section.desc }}
+{{ item.shortname }}{{ section.shortname }}:
+{% for objects in configobjects if objects.section == section.id -%}{% for values in configobjectvalues if values.object == objects.id %}
+{% for levels in configurationlevels if levels.value == values.id and levels.brand == item.id %}
+#{% if not section.listobject %} {{ objects.desc }}{% endif %} 
+  {% if section.listobject %}{{ '- { ' }}{% endif %}{{ objects.shortname }}: '{{ values.value  }}'{% if section.listobject %}, desc: '{{ objects.desc }}'{{ ' }' }}{% endif %}  
+{% endfor %}{%- endfor %}{% endfor %}{% endfor %}
+

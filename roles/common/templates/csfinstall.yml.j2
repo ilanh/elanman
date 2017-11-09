@@ -1,0 +1,60 @@
+---
+- name: Install ipset
+  yum: name=ipset state=installed
+  tags: csf
+  when: liverun
+
+- name: download csf
+  get_url: url=https://download.configserver.com/csf.tgz dest=/usr/src/csf.tgz
+  tags: csf
+  when: not csfExists.stat.exists and liverun
+
+- name: extract csf
+  unarchive: src=/usr/src/csf.tgz dest=/usr/src copy=no
+  tags: csf
+  when: not csfExists.stat.exists and liverun
+
+- name: install csf
+  shell: /usr/src/csf/install.sh chdir=/usr/src/csf/
+  tags: csf
+  when: not csfExists.stat.exists and liverun
+
+- name: remove archive
+  file: path=/usr/src/csf.tgz state=absent
+  tags: csf
+  when: not csfExists.stat.exists and liverun
+
+- name: remove folder
+  file: path=/usr/src/csf/ state=absent
+  tags: csf
+  when: not csfExists.stat.exists and liverun
+
+- name: update csf config
+  template: src=csf.conf.j2 dest=/etc/csf/csf.conf
+  tags: csfConf
+  when: liverun
+
+- name: update csf allow file
+  template: src=csf.allow.j2 dest=/etc/csf/csf.allow
+  tags: csfConf
+  when: liverun
+
+- name: update csf process ignore file
+  template: src=csf.pignore.j2 dest=/etc/csf/csf.pignore
+  tags: csfConf
+  when: liverun
+
+- name: always restart csf
+  service: name=csf state=restarted
+  tags: csf,csfConf
+  when: liverun
+
+- name: restart lfd when csf is out of Testing mode
+  service: name=lfd state=restarted
+  tags: csf,csfConf
+  when: csfTestMode == "0" and csfExists.stat.exists and liverun
+
+- name: Done
+  debug: msg="csf installed and have basic configuration"
+  tags: csf
+  when: csfTestMode == "0" and csfExists.stat.exists and liverun

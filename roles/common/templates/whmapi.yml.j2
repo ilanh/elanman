@@ -1,0 +1,29 @@
+{% raw %}
+---
+# Validates that the path for whmapi output logs - (insert variable) exists
+# Creates a file with the intended whmapi calls for role {% endraw %}{{ item.shortname }}{% raw %} 
+# If the 'liverun' was supplied executes the calls in the created file and deletes it
+- name: Include whmapi variables
+  include_vars: whmapi{% endraw %}{{ item.shortname }}{% raw %}vars.yml
+  tags:
+    - always
+
+- name: Make sure manage folder exists
+  file: 
+    path: "{{ whmapilogs }}"
+    state: directory
+  tags: {% endraw %}whmapi{{ item.shortname }}{% raw %},whmapi
+
+- name: Create WHM api calls for {% endraw %}{{ item.shortname }}{% raw %} role
+  template: 
+    src: whmapicalls.txt.j2
+    dest: "{{ whmapilogs }}/{% endraw %}whmapi{{ item.shortname }}{% raw %}calls.txt"
+  tags: {% endraw %}whmapi{{ item.shortname }}{% raw %},whmapi
+
+- name: Run the script
+  script: "runwhmapi1.sh {% endraw %}whmapi{{ item.shortname }}{% raw %}calls.txt {{ whmapilogs }}"
+  args:
+    removes: "{{ whmapilogs }}/{% endraw %}whmapi{{ item.shortname }}{% raw %}calls.txt"
+  tags: {% endraw %}whmapi{{ item.shortname }}{% raw %},whmapi
+  when: liverun
+{% endraw %}

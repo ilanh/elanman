@@ -1,0 +1,32 @@
+---
+# file: cmq install
+- name: download cmq
+  get_url: url=http://download.configserver.com/cmq.tgz dest=/usr/src/cmq.tgz
+  tags: cmq
+  when: liverun
+
+- name: extract cmq
+  unarchive: src=/usr/src/cmq.tgz dest=/usr/src copy=no
+  tags: cmq
+  when: liverun
+
+- name: install cmq
+  shell: /usr/src/cmq/install.sh chdir=/usr/src/cmq/
+  tags: cmq
+  when: liverun
+
+- name: remove archive
+  file: path=/usr/src/cmq.tgz state=absent
+  tags: cmq
+  when: liverun
+
+- name: remove folder
+  file: path=/usr/src/cmq/ state=absent
+  tags: cmq
+  when: liverun
+
+- name: Done
+  debug: msg="ConfigServer Mail Queues plugin installed"
+  tags: cmq
+  when: liverun
+

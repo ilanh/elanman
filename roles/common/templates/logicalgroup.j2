@@ -1,0 +1,69 @@
+# inventory file for {{ item.shortname }}
+
+# regions and roles
+{% for regionname in regions %}
+{% for rolename in roles if not rolename.addon %}
+
+# All servers with role {{ rolename.shortname }} at {{ regionname.shortname }}
+[{{ regionname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.region == regionname.id and nodename.role == rolename.id and nodename.logicalgroup == item.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+# brands and roles
+{% for brandname in brands %}
+{% for rolename in roles if not rolename.addon %}
+
+[{{ brandname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.brand == brandname.id and nodename.role == rolename.id and nodename.logicalgroup == item.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+# roles children
+{% for rolename in roles if not rolename.addon %}
+
+# define children of {{ rolename.shortname }}
+[{{ rolename.shortname }}:children]
+{% for regionname in regions %}
+{{ regionname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+# region children
+{% for regionname in regions %}
+
+# define children of {{ regionname.shortname }}
+[{{ regionname.shortname }}:children]
+{% for rolename in roles if not rolename.addon %}
+{{ regionname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+# brand children
+{% for brandname in brands %}
+
+# define children of {{ brandname.shortname }}
+[{{ brandname.shortname }}:children]
+{% for rolename in roles if not rolename.addon %}
+{{ brandname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+
+[all:vars]
+whm_installed=true
+whmapilogs="{{ whmapilogs }}"
+develop=false
+clCagefsEnabled=true
+c1CagefsRelocate=true
+clAltphpEnabled=true
+clLsapiEnabled=true
+csfTestMode='0'

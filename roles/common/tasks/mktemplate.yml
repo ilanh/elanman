@@ -1,0 +1,16 @@
+---
+# copy and template final templates
+  - name: "copy {{ rolesapply.shortname }} template"
+    copy:
+      src: "{{ rolesapply.shortname }}.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/templates/{{ rolesapply.shortname }}.j2"
+    with_items: "{{ roles }}"
+    when: item.id == rolesapply.role and not rolesapply.istemplate
+
+  - name: "copy {{ rolesapply.shortname }} template"
+    template:
+      src: "{{ rolesapply.shortname }}.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/templates/{{ rolesapply.shortname }}.j2"
+    with_items: "{{ roles }}"
+    when: item.id == rolesapply.role and rolesapply.istemplate
+

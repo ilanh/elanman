@@ -1,0 +1,30 @@
+---
+answerfileversion: "{{ makefileversion }}"
+whmapilogs: "{{ whmapilogs }}"
+creategitignore: {{ creategitignore }}
+createansiblehosts: {{ createansiblehosts }}
+regions:
+{% for regionsorg in regions %}
+    - { id: '{{ regionsorg.id }}', shortname: '{{ regionsorg.shortname }}' }
+{% endfor %}
+brands:
+{% for brandsorg in brands %}
+    - { id: '{{ brandsorg.id }}', shortname: '{{ brandsorg.shortname }}', desc: '{{ brandsorg.desc }}', domain: '{{ brandsorg.domain }}' }
+{% endfor %}
+logicalgroups:
+{% for logicalgroupsorg in logicalgroups %}
+    - { id: '{{ logicalgroupsorg.id }}', shortname: '{{ logicalgroupsorg.shortname }} }
+{% endfor %}
+servernodes:
+{% for nodesorg in servernodes %}
+    - { fullname: '{{ nodesorg.fullname }}', role: '{{ nodesorg.role }}', ipaddress: '{{ nodesorg.ipaddress }}', brand: '{{ nodesorg.brand }}', region: '{{ nodesorg.region }}', logicalgroup: '{{ nodesorg.logicalgroup }}' }
+{% endfor %}
+roletasks:
+{% for roletasksorg in roletasks %}
+    - { shortname: '{{ roletasksorg.shortname }}', desc: '{{ roletasksorg.desc }}', role: '{{ roletasksorg.role }}' }
+{% endfor %}
+roletemplates:
+{% for roletemplatesorg in roletemplates %}
+    - { id: 'shortname: '{{ roletemplatesorg.shortname }}', desc: '{{ roletemplatesorg.desc }}', istemplate: {{ roletemplatesorg.istemplate }}, role: '{{ roletemplatesorg.role }}' }
+{% endfor %}
+

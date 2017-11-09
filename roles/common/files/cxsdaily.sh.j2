@@ -1,0 +1,17 @@
+#!/bin/sh
+###############################################################################
+# Copyright 2009-2016, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# Run this script via cron daily
+
+# Daily update of cxs and/or fingerprint definitions
+/usr/sbin/cxs --upgrade --quiet
+
+# Daily cleanup of quarantine if used. Modify to specify your quarantine
+# directory and duplicate if you use more than one.
+#
+# Set --qclean to the number of days to retain, e.g. 7 = one week
+/usr/sbin/cxs --qclean 7 --quarantine /etc/cxs/quarantine --quiet
+#/usr/sbin/cxs --qclean 7 --quarantine /home/quarantine --quiet

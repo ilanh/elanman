@@ -1,0 +1,52 @@
+---
+- name: "Check if cpanel.config exists"
+  stat:
+    path: /var/cpanel/cpanel.config
+  tags:
+    - always
+  register: cpConfigExists
+
+- name: "Check if EasyApache4 is used"
+  stat:
+    path: /etc/cpanel/ea4/is_ea4
+  tags: easyapache,clLiblsapi
+  register: easyApache4
+
+- name: "Check if csf script exists"
+  stat:
+    path: /usr/sbin/csf
+  tags: csf
+  register: csfExists
+
+- name: "Check if cxs script exists"
+  stat:
+    path: /usr/sbin/cxs
+  tags: cxs,localconf
+  register: cxsExists
+
+- name: "Check if cagefs is initialized"
+  stat:
+    path: /usr/share/cagefs-skeleton/dev
+  tags: clcagefs,clLiblsapi
+  register: cagefsinit
+
+- name: "Check if whmapi1 exists"
+  stat:
+    path: /usr/sbin/whmapi1
+  tags:
+    - always
+  register: whmapi1Exists
+
+- name: "Check privileges"
+  shell: /usr/sbin/whmapi1 myprivs
+  register: myprivoutput
+  tags:
+    - always
+  when: whmapi1Exists.stat.exists
+
+- name: "read cpanel.config"
+  shell: cat /var/cpanel/cpanel.config
+  tags:
+    - always
+  register: cpanelconfig
+  when: cpConfigExists.stat.exists

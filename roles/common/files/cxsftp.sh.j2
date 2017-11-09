@@ -1,0 +1,17 @@
+#!/bin/sh
+###############################################################################
+# Copyright 2009-2016, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# The option --ftp MUST be used on the cxs command line here
+#
+# Examples (only use ONE line for cxs scanning):
+#/usr/sbin/cxs --quiet --ftp --mail root "$1"
+#/usr/sbin/cxs --quiet --ftp --mail root --quarantine /home/safe/ "$1"
+#/usr/sbin/cxs --quiet --ftp --mail root --quarantine /home/safe/ --block "$1"
+#/usr/sbin/cxs --quiet --ftp --logfile /var/log/cxs.log "$1"
+#
+# If you use --logfile, remember to chmod 666 [file] to allow write access
+/usr/sbin/cxs --quiet --ftp --quarantine /etc/cxs/quarantine --logfile /var/log/cxs.log --mail {{ serverContactEmail }} "$1"
+#/usr/sbin/cxs --quiet --ftp --smtp --mail root "$1"

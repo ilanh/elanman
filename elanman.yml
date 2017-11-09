@@ -1,0 +1,8 @@
+---
+- hosts: managers
+  roles:
+    - common
+    - cpanel
+  vars:
+    destinationDir: "~/myelanman"
+    makefileversion: "0.1"

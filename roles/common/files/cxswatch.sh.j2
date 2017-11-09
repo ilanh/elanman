@@ -1,0 +1,19 @@
+#!/bin/sh
+###############################################################################
+# Copyright 2009-2016, Way to the Web Limited
+# URL: http://www.configserver.com
+# Email: sales@waytotheweb.com
+###############################################################################
+# The option --Wstart MUST be used on the cxs command line here
+#
+# Examples (only use ONE line for cxs scanning):
+#/usr/sbin/cxs --Wstart --allusers --mail root
+#/usr/sbin/cxs --Wstart --allusers --www --mail root --quarantine /home/safe/ --qoptions Mv --Wadd /etc/cxs/cxs.wadd
+#
+# We would recommend using --qoptions Mv initially if you use --quarantine
+# otherwise you might find cxs quarantining files that you do not want to.
+# For example, you probably do NOT want to quarantine all script files (T)!
+#
+/usr/sbin/cxs --options -wW --Wstart --allusers --www --smtp --ignore /etc/cxs/cxs.ignore --qoptions Mv --quarantine /etc/cxs/quarantine --log /var/log/cxs.log --Wmaxchild 3 --Wloglevel 0 --Wsleep 3 --filemax 0 --Wrateignore 300
+
+#/usr/sbin/cxs --options -wW --Wstart --allusers --www --smtp --mail root --Wmaxchild 3 --Wloglevel 0 --Wsleep 3 --filemax 0 --Wrateignore 300

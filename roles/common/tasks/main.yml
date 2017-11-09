@@ -1,0 +1,137 @@
+---
+# Start initializing variables from answer files
+#
+  - name: make sure elanman directory exists
+    file:
+      path: "{{ destinationDir }}"
+      state: directory
+
+  - name: "Check if answer file exists"
+    stat:
+      path: "{{ destinationDir }}/answers.yml"
+    register: answerfile
+
+  - name: copy answers sample if does not exist
+    copy:
+      src: "answers.sample.yml"
+      dest: "{{ destinationDir }}/answers.yml"
+    when: not answerfile.stat.exists
+
+  - name: set runtimevar
+    set_fact:
+      runtimevar: "{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}"
+
+  - name: get answer file
+    fetch:
+      src: "{{ destinationDir }}/answers.yml"
+      dest: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yml"
+      flat: yes
+
+  - name: include default object
+    include_vars: "vars/defaultobjects.yml"
+
+  - name: include answers
+    include_vars: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yml"
+
+  - name: perform answerfile upgrade
+    include_tasks: "upgrade-{{ answerfileversion }}-to-{{ makefileversion }}.yml"
+    when: answerfileversion != makefileversion
+
+## End initializing variables for manager
+
+  - name: create README.md
+    template:
+      src: "README.md.j2"
+      dest: "{{ destinationDir }}/README.md"
+
+  - name: "create /etc/ansible/hosts.new file"
+    template:
+      src: "ansiblehosts.j2"
+      dest: "/etc/ansible/hosts.new"
+    when: createansiblehosts
+
+  - name: create base directory
+    file:
+      path: "{{ destinationDir }}/{{ item }}"
+      state: directory
+    with_items:
+      - roles
+      - files
+      - host_vars
+      - group_vars
+
+  - name: create region var files
+    template:
+      src: "regions.j2"
+      dest: "{{ destinationDir }}/group_vars/{{ item.shortname }}"
+    with_items: "{{ regions  }}"
+
+  - name: create host var files
+    template:
+      src: "hostvar.j2"
+      dest: "{{ destinationDir }}/host_vars/{{ item.fullname }}"
+    with_items: "{{ servernodes  }}"
+
+  - name: create brand var files
+    template:
+      src: "brands.j2"
+      dest: "{{ destinationDir }}/group_vars/{{ item.shortname }}"
+    with_items: "{{ brands  }}"
+
+  - name: create hosts file (flat inventory for scripts)
+    template:
+      src: "hosts.j2"
+      dest: "{{ destinationDir }}/hosts"
+
+  - name: create .gitignoe
+    template:
+      src: "gitignore.j2"
+      dest: "{{ destinationDir }}/.gitignore"
+    when: creategitignore
+
+  - name: create role directories
+    include_tasks: mkdir.yml
+    with_items: "{{ roles }}"
+    loop_control:
+      loop_var: roledirs
+
+  - name: create role vars
+    template:
+      src: "mainvars.yml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/main.yml"
+    with_items: "{{ roles  }}"
+
+  - name: "create role tasks"
+    include_tasks: mktasks.yml
+    with_items: "{{ roletasks }}"
+    loop_control:
+      loop_var: rolesapply
+
+  - name: "copy role templates"
+    include_tasks: mktemplate.yml
+    with_items: "{{ roletemplates }}"
+    loop_control:
+      loop_var: rolesapply
+
+  - name: "create role tasks main.yml"
+    include_tasks: mkmaintasks.yml
+    with_items: "{{ roles }}"
+
+  - name: create site.yml
+    template:
+      src: site.yml.j2
+      dest: "{{ destinationDir }}/site.yml"
+
+  - name: create role yml files
+    template:
+      src: role.yml.j2
+      dest: "{{ destinationDir }}/{{ item.shortname }}.yml"
+    with_items: "{{ roles }}"
+    when: not item.addon
+
+  - name: create inventory files for logical groups
+    template:
+      src: logicalgroup.j2
+      dest: "{{ destinationDir }}/{{ item.shortname }}"
+    with_items: "{{ logicalgroups }}"
+

@@ -1,0 +1,32 @@
+---
+# file: cmm install
+- name: download cmm
+  get_url: url=http://download.configserver.com/cmm.tgz dest=/usr/src/cmm.tgz
+  tags: cmm
+  when: liverun
+
+- name: extract cmm
+  unarchive: src=/usr/src/cmm.tgz dest=/usr/src copy=no
+  tags: cmm
+  when: liverun
+
+- name: install cmm
+  shell: /usr/src/cmm/install.sh chdir=/usr/src/cmm/
+  tags: cmm
+  when: liverun
+
+- name: remove archive
+  file: path=/usr/src/cmm.tgz state=absent
+  tags: cmm
+  when: liverun
+
+- name: remove folder
+  file: path=/usr/src/cmm/ state=absent
+  tags: cmm
+  when: liverun
+
+- name: Done
+  debug: msg="ConfigServer Mail Manage plugin installed"
+  tags: cmm
+  when: liverun
+

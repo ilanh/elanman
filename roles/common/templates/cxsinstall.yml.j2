@@ -1,0 +1,124 @@
+---
+# file: cxs install
+- name: download cxs
+  get_url: url=https://download.configserver.com/cxsinstaller.tgz dest=/usr/src/cxsinstaller.tgz
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: extract cxs
+  unarchive: src=/usr/src/cxsinstaller.tgz dest=/usr/src copy=no
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: install cxs
+  shell: "/usr/bin/perl /usr/src/cxsinstaller.pl"
+  register: cxsInstallState
+  tags: cxs
+  failed_when: "'Invalid license' in cxsInstallState.stdout" 
+  when: liverun and cxslicenced
+
+- name: remove archive
+  file: path=/usr/src/cxsinstaller.tgz state=absent
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: remove folder
+  file: path=/usr/src/cxsinstaller.pl state=absent
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: create quarentine folder
+  shell: /usr/sbin/cxs --qcreate --quarantine /etc/cxs/quarantine
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: create cxs daily cron script
+  template: src=cxsdaily.sh.j2 dest=/etc/cxs/cxsdaily.sh owner=root mode=0700
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: create cxs watch script
+  template: src=cxswatch.sh.j2 dest=/etc/cxs/cxswatch.sh owner=root mode=0700
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: create cxs ftp script
+  template: src=cxsftp.sh.j2 dest=/etc/cxs/cxsftp.sh owner=root mode=0700
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: create daily-cxs in cron.d
+  template: src=daily-cxs.j2 dest=/etc/cron.d/daily-cxs owner=root mode=0644
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: ClamAV local rpm tag
+  shell: /scripts/update_local_rpm_versions --edit target_settings.clamav installed
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: Fix rpm if needed for ClamAV
+  shell: "/scripts/check_cpanel_rpms --fix --targets=clamav"
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: create cxs ftp script
+  template: src=cxsftp.sh.j2 dest=/etc/cxs/cxsftp.sh owner=root mode=0700
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: create cxs.log
+  template: src=cxs.log.j2 dest=/var/log/cxs.log owner=root mode=0630
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: Enable upload script
+  lineinfile: path=/etc/pure-ftpd.conf regexp='^#CallUploadScript' line='CallUploadScript yes'
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced and cpConfigExists.stat.exists and cpanelconfig.stdout.find('ftpserver=pure-ftpd') != -1
+
+- name: always restart pure-ftpd
+  service: name=pure-ftpd state=restarted
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced and cpConfigExists.stat.exists and cpanelconfig.stdout.find('ftpserver=pure-ftpd') != -1
+
+- name: always restart pure-uploadscript
+  service: name=pure-uploadscript state=restarted
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced and cpConfigExists.stat.exists and cpanelconfig.stdout.find('ftpserver=pure-ftpd') != -1
+
+- name: Add modsec vendor
+  shell: "/scripts/modsec_vendor add https://download.configserver.com/waf/meta_configserver.yaml"
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: Enable ConfigServer cxs modsec
+  shell: "/scripts/modsec_vendor enable configserver"
+  tags: cxs
+  when: liverun and cxslicenced
+
+- name: Create cxsdaily script
+  file: src=/etc/cxs/cxsdaily.sh.j2 dest=/etc/cron.daily/cxsdaily.sh state=link
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: always restart httpd
+  service: name=httpd state=restarted
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: enable cxswatch
+  service: name=cxswatch enabled=yes
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+- name: always restart cxswatch
+  service: name=cxswatch state=restarted
+  tags: cxs,cxsconf
+  when: liverun and cxslicenced
+
+
+- name: Done
+  debug: msg="ConfigServer Exploit Scanner plugin installed"
+  tags: cxs
+

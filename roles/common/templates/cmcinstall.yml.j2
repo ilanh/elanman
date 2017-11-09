@@ -1,0 +1,32 @@
+---
+# file: cmc install
+- name: download cmc
+  get_url: url=http://download.configserver.com/cmc.tgz dest=/usr/src/cmc.tgz
+  tags: cmc
+  when: liverun
+
+- name: extract cmc
+  unarchive: src=/usr/src/cmc.tgz dest=/usr/src copy=no
+  tags: cmc
+  when: liverun
+
+- name: install cmc
+  shell: /usr/src/cmc/install.sh chdir=/usr/src/cmc/
+  tags: cmc
+  when: liverun
+
+- name: remove archive
+  file: path=/usr/src/cmc.tgz state=absent
+  tags: cmc
+  when: liverun
+
+- name: remove folder
+  file: path=/usr/src/cmc/ state=absent
+  tags: cmc
+  when: liverun
+
+- name: Done
+  debug: msg="ConfigServer ModSecurity plugin installed"
+  tags: cmc
+  when: liverun
+

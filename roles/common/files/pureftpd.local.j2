@@ -1,0 +1,6 @@
+{% for conf in pureftpdlocal %}
+{{ conf.shortname }} {{ conf.value }}# {{ conf.desc }}
+{% endfor %}
+{% if cxsExists.stat.exists %}
+CallUploadScript yes
+{% endif %}}

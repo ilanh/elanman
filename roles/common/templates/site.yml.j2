@@ -1,0 +1,7 @@
+---
+# master playbook
+{% for masterroles in roles %}
+{% if not masterroles.addon %}
+- import_playbook: {{ masterroles.shortname }}.yml
+{% endif %}
+{% endfor %}

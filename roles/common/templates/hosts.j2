@@ -1,0 +1,4 @@
+# all hosts from all regions
+{% for hostname in servernodes %}
+{{ hostname.fullname }}
+{% endfor %}

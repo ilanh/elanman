@@ -1,0 +1,28 @@
+{
+   "version" : "{{ eaprofile.ver }}",
+   "desc" : "{{ eaprofile.desc }}",
+   "pkgs" : [
+{% for apachemodules in clEaApache %}
+      "{{ apachemodules.package }}",
+{% endfor %}
+{% for php in clEaPhpVersions %}
+      "{{ php.phpver }}",
+      "{{ php.phpver }}-runtime",
+{% endfor %}
+{% for php in clEaPhpVersions %}
+{% for mods in clEaPhpModules %}
+{% if php.phpver in mods.phpsup %}
+      "{{ php.phpver }}-php-{{ mods.phpmod }}",
+{% endif %}
+{% endfor %}
+{% endfor %}
+      "ea-apache24"
+   ],
+   "name" : "{{ eaprofile.name}}",
+   "tags" : [
+{% for php in clEaPhpVersions %}
+      "PHP {{ php.phptag }}",
+{% endfor %}
+      "Apache 2.4"
+   ]
+}

@@ -1,0 +1,8 @@
+---
+# Tasks for {{ item.shortname }}
+{% for activetasks in roletasks if activetasks.role == item.id %}
+
+# Import tasks for {{ activetasks.desc }}
+- name: "Import {{ activetasks.shortname }} tasks"
+  import_tasks: "{{ activetasks.shortname }}.yml"
+{% endfor %}

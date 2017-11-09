@@ -1,0 +1,8 @@
+---
+# file: {{ item.shortname }}.yml
+# playbook for {{ item.shortname }} tier
+- hosts: {{ item.shortname }}
+  roles:
+    - common
+    - {{ item.shortname }}
+    - postrun

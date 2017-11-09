@@ -1,0 +1,4 @@
+{% raw %}{% for whmapicalls in whmapi{% endraw %}{{ item.shortname }}{% raw %}vars %}
+{{ whmapicalls.section }} {{ whmapicalls.object }}{{ whmapicalls.value }}
+{% endfor %}
+{% endraw %}

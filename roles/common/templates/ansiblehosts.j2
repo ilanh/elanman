@@ -1,0 +1,40 @@
+# roles section
+{% for rolename in roles if not rolename.addon %}
+
+# All servers with role {{ rolename.shortname }}
+[{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.role == rolename.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+# regions and roles section
+{% for regionname in regions %}
+{% for rolename in roles if not rolename.addon %}
+
+# All servers with role {{ rolename.shortname }} at {{ regionname.shortname }}
+[{{ regionname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.region == regionname.id and nodename.role == rolename.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+# brands and roles section
+{% for brandname in brands %}
+{% for rolename in roles %}
+
+# All servers with role {{ rolename.shortname }} from brand {{ brandname.shortname }}
+[{{ brandname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.brand == brandname.id and nodename.role == rolename.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+

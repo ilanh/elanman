@@ -1,0 +1,25 @@
+---
+  - name: copy whmapi shell script
+    copy:
+      src: "runwhmapi1.sh"
+      dest: "{{ destinationDir }}/files/runwhmapi1.sh"
+      mode: 0755
+
+  - name: copy Easy Apache profiles
+    copy:
+      src: "{{ item.shortname }}.yml"
+      dest: "{{ destinationDir }}/roles/sharedhosting/vars/{{ item.shortname }}.yml"
+    with_items: "{{ easyapacheprofiles }}"
+
+  - name: create whmapi templates
+    template:
+      src: "callswhmapi.txt.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/templates/whmapicalls.txt.j2"
+    with_items: "{{ roles }}"
+
+  - name: create whmapi vars
+    template:
+      src: "whmapivars.yml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/whmapi{{ item.shortname }}vars.yml"
+    with_items: "{{ roles  }}"
+

@@ -1,0 +1,9 @@
+---
+## whmapi variables for {{ item.shortname }}
+#
+# All values that are supposed to be at this level 
+whmapi{{ item.shortname }}vars:
+{% for section in whmapisections %}{% for objects in whmapiobjects if objects.section == section.id %}{% for values in whmapiobjectvalues if values.object == objects.id %}
+{% for levels in whmapiconfiglevels if levels.value == values.id and levels.role == item.id %}  - { section: '{{ section.shortname }}', object: '{{ objects.shortname }}', value: '{{ values.value  }}' }
+{% endfor %}{% else %}
+  - { empty: true}{% endfor %}{% endfor %}{% endfor %}

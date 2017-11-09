@@ -1,0 +1,112 @@
+{% raw %}
+---
+- name: Include cloudlinux variables
+  include_vars: "{{ {% endraw %}{{ item.shortname }}{% raw %}ea.activeea }}.yml"
+  tags:
+    - always
+
+- name: Create cagefs skeleton directory
+  file: path=/home/cagefs-skeleton/ state=directory
+  tags: clcagefs
+  when: clCagefsEnabled and c1CagefsRelocate and cagefsinit.stat.exists == false and liverun
+
+- name: Create cagefs link
+  file: src=/home/cagefs-skeleton/ dest=/usr/share/cagefs-skeleton state=link
+  tags: clcagefs
+  when: clCagefsEnabled and c1CagefsRelocate and cagefsinit.stat.exists == false and liverun
+
+- name: Add cagefs
+  yum: name=cagefs state=installed
+  tags: clcagefs
+  when: clCagefsEnabled and liverun
+
+- name: Add lvemanager
+  yum: name=lvemanager state=installed
+  tags: clcagefs
+  when: clCagefsEnabled and liverun
+
+- name: Initialiize cagefs skeleton
+  shell: /usr/sbin/cagefsctl --init
+  tags: clcagefs
+  when: cagefsinit.stat.exists == false and clCagefsEnabled and liverun
+
+- name: Update cagefs skeleton
+  shell: /usr/sbin/cagefsctl --update
+  tags: clcagefs
+  when: cagefsinit.stat.exists == true and clCagefsEnabled  and liverun
+
+- name: Enable cagefs for all users
+  shell: /usr/sbin/cagefsctl --enable-all
+  tags: clcagefs
+  when: clCagefsEnabled and liverun
+
+- name: Add php selector
+  yum: name=@alt-php state=installed
+  tags: claltphp
+  when: clAltphpEnabled and liverun
+
+- name: Update cagefs
+  yum: name=cagefs state=latest
+  tags: claltphp
+  when: clAltphpEnabled  and liverun
+
+- name: Update lvemanager
+  yum: name=lvemanager state=latest
+  tags: claltphp
+  when: clAltphpEnabled and liverun
+
+- name: Make sure custom profile directory exists
+  file: path=/etc/cpanel/ea4/profiles/custom/ state=directory
+  tags: clLiblsapi,claltphp
+  when: (clAltphpEnabled  or clLsapiEnabled ) and easyApache4.stat.exists == true and liverun
+
+- name: Add custom EA profile
+  template: src=custom1_cl.json.j2 dest=/etc/cpanel/ea4/profiles/custom/{{ {% endraw %}{{ item.shortname }}{% raw %}ea.activeea }}.json
+  tags: clLiblsapi,claltphp
+  when: (clAltphpEnabled  or clLsapiEnabled ) and easyApache4.stat.exists == true and liverun
+
+- name: Add liblsapi
+  yum: name=liblsapi state=installed
+  tags: clLiblsapi
+  when: clLsapiEnabled  and liverun
+
+- name: Add liblsapi-devel
+  yum: name=liblsapi-devel state=installed
+  tags: clLiblsapi
+  when: clLsapiEnabled  and liverun
+
+- name: download cloudlinux_ea3_to_ea4
+  get_url: url=http://repo.cloudlinux.com/cloudlinux/sources/cloudlinux_ea3_to_ea4 dest=/root/ mode=0700
+  tags: clLiblsapi
+  when: clLsapiEnabled  and easyApache4.stat.exists == false and clConvertToEA4  and liverun
+
+- name: convert to EA4 from for EA3
+  shell: /root/cloudlinux_ea3_to_ea4 --convert --mod_lsapi
+  tags: clLiblsapi
+  when: clLsapiEnabled  and easyApache4.stat.exists == false and clConvertToEA4  and liverun
+
+- name: Add mod_lsapi for EA3
+  yum: name=mod_lsapi state=installed
+  tags: clLiblsapi
+  when: clLsapiEnabled  and easyApache4.stat.exists == false and clConvertToEA4  and liverun
+
+- name: Add mod_lsapi for EA4
+  yum: name=ea-apache24-mod_lsapi state=installed
+  tags: clLiblsapi
+  when: clLsapiEnabled  and (easyApache4.stat.exists == true or clConvertToEA4 ) and liverun
+
+- name: build lsphp binary for EA3
+  shell: /usr/bin/switch_mod_lsapi --build-native-lsphp
+  tags: clLiblsapi
+  when: clLsapiEnabled  and easyApache4.stat.exists == false and clConvertToEA4  and liverun
+
+- name: prepare environment
+  shell: /usr/bin/switch_mod_lsapi --setup
+  tags: clLiblsapi
+  when: clLsapiEnabled  and liverun
+
+- name: always restart httpd
+  service: name=httpd state=restarted
+  tags: clLiblsapi
+  when: clLsapiEnabled  and liverun
+{% endraw %}
