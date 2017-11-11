@@ -12,6 +12,35 @@ whmapisections:
     - { id: 'enmkt', shortname: 'enable_market_provider', desc: 'Enable cPanel Market provider' }
     - { id: 'demkt', shortname: 'disable_market_provider', desc: 'Disable cPanel Market provider' }
     - { id: 'backupset', shortname: 'backup_config_set', desc: ' configures a servers backup system' }
+roletasks:
+    - { shortname: 'checks', desc: 'general server checks', role: 'comn' }
+    - { shortname: 'cloudlinux', desc: 'Cloudlinux tasks', role: 'sha' }
+    - { shortname: 'cmcinstall', desc: 'ConfigServer Mod Security plugin', role: 'sha' }
+    - { shortname: 'cmminstall', desc: 'ConfigServer Mail manage plugin', role: 'sha' }
+    - { shortname: 'cmqinstall', desc: 'ConfigServer Mail Queue plugin', role: 'sha' }
+    - { shortname: 'csfinstall', desc: 'ConfigServer Firewall addon', role: 'comn' }
+    - { shortname: 'csfconf', desc: 'Configure task for csf', role: 'comn' }
+    - { shortname: 'csfconf', desc: 'Configure task for csf', role: 'sha' }
+    - { shortname: 'cxsinstall', desc: 'ConfigServer Exploit addon (requires license)', role: 'sha' }
+    - { shortname: 'whmapi', desc: 'whmapi task for common', role: 'comn' }
+    - { shortname: 'whmapi', desc: 'whmapi task for sharedhosting', role: 'sha' }
+    - { shortname: 'whmapi', desc: 'whmapi task for dnsonly', role: 'dns' }
+    - { shortname: 'whmapi', desc: 'whmapi task for postrun', role: 'mail' }
+roletemplates:
+    - { shortname: 'custom1_cl.json', desc: 'Custom Easy Apache Template', istemplate: false, role: 'sha' }
+    - { shortname: 'csf.conf', desc: 'csf.conf template', istemplate: true, role: 'comn' }
+    - { shortname: 'csf.allow', desc: 'csf.allow template', istemplate: true, role: 'comn' }
+    - { shortname: 'csf.pignore', desc: 'csf.pignore template', istemplate: true, role: 'comn' }
+    - { shortname: 'csf.conf', desc: 'csf.conf template', istemplate: true, role: 'sha' }
+    - { shortname: 'csf.allow', desc: 'csf.allow template', istemplate: true, role: 'sha' }
+    - { shortname: 'csf.pignore', desc: 'csf.pignore template', istemplate: true, role: 'sha' }
+    - { shortname: 'cxsftp.sh', desc: 'ftp upload script for cxs', istemplate: false, role: 'sha' }
+    - { shortname: 'cxswatch.sh', desc: 'cxs watch script', istemplate: false, role: 'sha' }
+    - { shortname: 'pureftpd.local', desc: 'pureftpd local configuration for custom ports', istemplate: false, role: 'sha' }
+    - { shortname: 'cxsdaily.sh', desc: 'daily cxs cron script', istemplate: false, role: 'sha' }
+    - { shortname: 'regex.custom.pm', desc: 'custom regex checker for csf', istemplate: false, role: 'comn' }
+    - { shortname: 'regex.custom.pm', desc: 'custom regex checker for csf', istemplate: false, role: 'sha' }
+    - { shortname: 'cxs.log', desc: 'empty file fox cxs.log', istemplate: false, role: 'sha' }
 configobjects:
     - { id: 'udpportsin', section: 'fwport', shortname: 'udpopeninports', desc: 'which udp ports to open in' }
     - { id: 'tcpportsin', section: 'fwport', shortname: 'tcpopeninports', desc: 'which tcp ports to open in' }
@@ -51,4 +80,3 @@ whmapiobjects:
     - { id: 'bkdir', section: 'backupset', shortname: 'backupdir=', desc: 'The primary backup directory' }
     - { id: 'bktype', section: 'backupset', shortname: 'backuptype=', desc: 'The type of backup to create' }
     - { id: 'bkdeletelocal', section: 'backupset', shortname: 'keeplocale=', desc: 'Whether to delete backups from the local directory' }
-
