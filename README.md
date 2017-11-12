@@ -21,5 +21,11 @@ Your answers will include:
 * Facts about your Organiztion  
 * Values for the objects defined above  
 * Roles that you want define differ  
-* Assignments of values to roles/brands/regions/status
-
+* Assignments of values to roles/brands/regions/status  
+The whole playbook is will be organized with the following guides:  
+* You define how your servers are organized in brands, regions, roles and logical groups  
+* In the answer file there are configuration sections like firewall ports  
+* In the sections there are configuration objects like 'tcp in ports'  
+* For each object there are several possible values like '22,80,443' and '22,53,2087'  
+* The values are assigned to brands, regions roles and logical groups  
+using this data the target playbook is generated with the relevant values for each group  
