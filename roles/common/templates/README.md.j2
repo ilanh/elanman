@@ -1,5 +1,8 @@
 # eLANman on {{ inventory_hostname }}
-
+This playbook was created automatically using this playbook:
+https://github.com/ilanh/elanman
+And this answer file:
+https://raw.githubusercontent.com/ilanh/myelanman/master/answers.yml
 
 ### What is this
 This project aim is to help admins configure WHM/cPanel servers using Ansible.
@@ -14,7 +17,8 @@ Install ConfigServer Mail Queue Manage plugin
 Install ConfigServer Mail Manage plugin  
 Install ConfigServer ModSecurity Manage plugin  
 Configure CloudLinux CageFS,Alt-php,LSAPI  
-
+Install custom EasyApache profiles  
+  
 #### Based on
 The directory structure is based on [Playboooks Best Practices](http://docs.ansible.com/ansible/playbooks_best_practices.html) and defines {{ roles|length }} roles, {{ logicalgroups|length }} inventory files and {{ regions|length }} regions.
 
@@ -89,11 +93,9 @@ apt-ish way:
 More info at:  
 http://docs.ansible.com/ansible/latest/intro_installation.html  
 
-### ssh Infrastructure
-#### generate keys
-how to generate keys  
-ssh-keygen -t rsa  
-#### copy public keys
-how to copy keys to hosts  
-ssh-copy-id ip/hostname 
 
+If you will run the command:  
+`asible-playbook -i production site.yml --list-tasks --list-tags --list-hosts -e "liverun=true"`  
+You will receive this output:  
+https://raw.githubusercontent.com/ilanh/myelanman/master/playbookoutput.log  
+FYI, whenever you add one of the --list-xxx option to ansible, no task is performed, ansible just outputs your requested list.  
