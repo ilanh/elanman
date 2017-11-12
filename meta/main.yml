@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: Ilan Harel
+  description: eLAN Manager for WHM (cPanel) servers
+  min_ansible_version: 2.4
+  galaxy_tags:
+    - whm
+    - server
+    - cPanel
+    - security
+    - configuration
+  platforms:
+   - name: EL
+     versions:
+      - 6
+      - 7
+  categories:
+   - SharedHosting
+   - system
