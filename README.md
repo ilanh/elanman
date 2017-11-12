@@ -17,11 +17,13 @@ The content of ~/myelanman/ will change accordinly.
 ## Answer file structure  
 The configurable options are at:  
 https://raw.githubusercontent.com/ilanh/elanman/master/roles/common/vars/defaultobjects.yml  
+
 Your answers will include:  
 * Facts about your Organiztion  
 * Values for the objects defined above  
 * Roles that you want define differ  
 * Assignments of values to roles/brands/regions/status  
+
 The whole playbook is will be organized with the following guides:  
 * You define how your servers are organized in brands, regions, roles and logical groups  
 * In the answer file there are configuration sections like firewall ports  
