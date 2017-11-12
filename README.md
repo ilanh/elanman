@@ -30,4 +30,6 @@ The whole playbook is will be organized with the following guides:
 * In the sections there are configuration objects like 'tcp in ports'  
 * For each object there are several possible values like '22,80,443' and '22,53,2087'  
 * The values are assigned to brands, regions roles and logical groups  
-using this data the target playbook is generated with the relevant values for each group  
+  
+using the data  
+main vars, templates and tasks in the target playbook are generated with the relevant values for each group 
