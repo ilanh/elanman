@@ -1,0 +1,7 @@
+---
+# main yml creation for all tasks 
+  - name: "create roles tasks main.yaml for {{ item.shortname }}"
+    template:
+      src: "maintasks.yaml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/tasks/main.yaml"
+

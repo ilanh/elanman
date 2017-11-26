@@ -6,19 +6,19 @@ It's a tool that creates your private tool based on the data that you provide in
 ## What does this playbook do
 If you install ansible on a linux machine, clone this project and run the following commands:  
 `cp managers.sample managers`  
-`ansible-playbook -i managers elanman.yml`  
+`ansible-playbook -i managers elanman.yaml`  
 After a few minutes you will end up with the following playbook:  
 https://github.com/ilanh/myelanman  
 In ~/myelanman/  
 The layout and variables in the generated playbook are taken from:  
-https://raw.githubusercontent.com/ilanh/elanman/master/roles/common/files/answers.sample.yml  
+https://raw.githubusercontent.com/ilanh/elanman/master/roles/common/files/answers.sample.yaml  
 
-If you cahnge ~/myelanman/answer.yml (copied on first run to an empty directory) and re run the playbook command from this project,  
+If you cahnge ~/myelanman/answer.yaml (copied on first run to an empty directory) and re run the playbook command from this project,  
 The content of ~/myelanman/ will change accordinly.
 
 ## Answer file structure  
 The configurable options are at:  
-https://raw.githubusercontent.com/ilanh/elanman/master/roles/common/vars/defaultobjects.yml  
+https://raw.githubusercontent.com/ilanh/elanman/master/roles/common/vars/defaultobjects.yaml  
 
 
 The whole playbook is will be organized with the following guides:  

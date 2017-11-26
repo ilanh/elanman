@@ -7,8 +7,8 @@
 
   - name: copy Easy Apache profiles
     copy:
-      src: "{{ item.shortname }}.yml"
-      dest: "{{ destinationDir }}/roles/sharedhosting/vars/{{ item.shortname }}.yml"
+      src: "{{ item.shortname }}.yaml"
+      dest: "{{ destinationDir }}/roles/sharedhosting/vars/{{ item.shortname }}.yaml"
     with_items: "{{ easyapacheprofiles }}"
 
   - name: create whmapi templates
@@ -19,7 +19,7 @@
 
   - name: create whmapi vars
     template:
-      src: "whmapivars.yml.j2"
-      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/whmapi{{ item.shortname }}vars.yml"
+      src: "whmapivars.yaml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/whmapi{{ item.shortname }}vars.yaml"
     with_items: "{{ roles  }}"
 

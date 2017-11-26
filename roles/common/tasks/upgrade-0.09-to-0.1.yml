@@ -1,9 +1,0 @@
----
-- name: import new vars
-  include_vars: defaultobjects.yml
-
-- name: create new answer file
-  template:
-    src: answers.yml.j2
-    dest: "{{ destinationDir }}/answers.todo.yml"
-    backup: true

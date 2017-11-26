@@ -8,13 +8,13 @@
 
   - name: "Check if answer file exists"
     stat:
-      path: "{{ destinationDir }}/answers.yml"
+      path: "{{ destinationDir }}/answers.yaml"
     register: answerfile
 
   - name: copy answers sample if does not exist
     copy:
-      src: "answers.sample.yml"
-      dest: "{{ destinationDir }}/answers.yml"
+      src: "answers.sample.yaml"
+      dest: "{{ destinationDir }}/answers.yaml"
     when: not answerfile.stat.exists
 
   - name: set runtimevar
@@ -23,18 +23,18 @@
 
   - name: get answer file
     fetch:
-      src: "{{ destinationDir }}/answers.yml"
-      dest: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yml"
+      src: "{{ destinationDir }}/answers.yaml"
+      dest: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yaml"
       flat: yes
 
   - name: include default object
-    include_vars: "vars/defaultobjects.yml"
+    include_vars: "vars/defaultobjects.yaml"
 
   - name: include answers
-    include_vars: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yml"
+    include_vars: "files/answers-{{ inventory_hostname }}-{{ runtimevar }}.yaml"
 
   - name: perform answerfile upgrade
-    include_tasks: "upgrade-{{ answerfileversion }}-to-{{ makefileversion }}.yml"
+    include_tasks: "upgrade-{{ answerfileversion }}-to-{{ makefileversion }}.yaml"
     when: answerfileversion != makefileversion
 
 ## End initializing variables for manager
@@ -90,42 +90,42 @@
     when: creategitignore
 
   - name: create role directories
-    include_tasks: mkdir.yml
+    include_tasks: mkdir.yaml
     with_items: "{{ roles }}"
     loop_control:
       loop_var: roledirs
 
   - name: create role vars
     template:
-      src: "mainvars.yml.j2"
-      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/main.yml"
+      src: "mainvars.yaml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/vars/main.yaml"
     with_items: "{{ roles  }}"
 
   - name: "create role tasks"
-    include_tasks: mktasks.yml
+    include_tasks: mktasks.yaml
     with_items: "{{ roletasks }}"
     loop_control:
       loop_var: rolesapply
 
   - name: "copy role templates"
-    include_tasks: mktemplate.yml
+    include_tasks: mktemplate.yaml
     with_items: "{{ roletemplates }}"
     loop_control:
       loop_var: rolesapply
 
-  - name: "create role tasks main.yml"
-    include_tasks: mkmaintasks.yml
+  - name: "create role tasks main.yaml"
+    include_tasks: mkmaintasks.yaml
     with_items: "{{ roles }}"
 
-  - name: create site.yml
+  - name: create site.yaml
     template:
-      src: site.yml.j2
-      dest: "{{ destinationDir }}/site.yml"
+      src: site.yaml.j2
+      dest: "{{ destinationDir }}/site.yaml"
 
-  - name: create role yml files
+  - name: create role yaml files
     template:
-      src: role.yml.j2
-      dest: "{{ destinationDir }}/{{ item.shortname }}.yml"
+      src: role.yaml.j2
+      dest: "{{ destinationDir }}/{{ item.shortname }}.yaml"
     with_items: "{{ roles }}"
     when: not item.addon
 

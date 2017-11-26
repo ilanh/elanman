@@ -2,8 +2,8 @@
 # copy tasks files to relevant roles
   - name: "create roles tasks for {{ rolesapply.shortname }}"
     template:
-      src: "{{ rolesapply.shortname }}.yml.j2"
-      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/tasks/{{ rolesapply.shortname }}.yml"
+      src: "{{ rolesapply.shortname }}.yaml.j2"
+      dest: "{{ destinationDir }}/roles/{{ item.shortname }}/tasks/{{ rolesapply.shortname }}.yaml"
     with_items: "{{ roles }}"
     when: item.id == rolesapply.role
 

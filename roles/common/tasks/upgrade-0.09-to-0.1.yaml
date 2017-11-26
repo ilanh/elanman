@@ -1,0 +1,9 @@
+---
+- name: import new vars
+  include_vars: defaultobjects.yaml
+
+- name: create new answer file
+  template:
+    src: answers.yaml.j2
+    dest: "{{ destinationDir }}/answers.todo.yaml"
+    backup: true
