@@ -11,7 +11,7 @@ whmapisections:
     - { id: 'deauth', shortname: 'disable_authentication_provider', desc: 'Disable authentication providers' }
     - { id: 'enmkt', shortname: 'enable_market_provider', desc: 'Enable cPanel Market provider' }
     - { id: 'demkt', shortname: 'disable_market_provider', desc: 'Disable cPanel Market provider' }
-    - { id: 'backupset', shortname: 'backup_config_set', desc: ' configures a servers backup system' }
+    - { id: 'backupset', shortname: 'backup_config_set', desc: 'configures a servers backup system' }
 roletasks:
     - { shortname: 'checks', desc: 'general server checks', role: 'comn' }
     - { shortname: 'cloudlinux', desc: 'Cloudlinux tasks', role: 'sha' }
