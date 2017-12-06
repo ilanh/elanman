@@ -1,5 +1,5 @@
 # elanman
-eLAN Manager for WHM servers  
+eLan Manager for WHM servers  
 # What is it
 It's a tool that creates your private tool based on the data that you provide in your answer file.
 
