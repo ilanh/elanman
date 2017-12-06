@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Ilan Harel
-  description: eLAN Manager for WHM (cPanel) servers
+  description: eLan Manager for WHM (cPanel) servers
   min_ansible_version: 2.4
   license: GPL-3.0
   galaxy_tags:
