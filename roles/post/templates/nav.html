@@ -10,19 +10,15 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            {% if user.is_staff %}
             <li class="nav-item">
                 <a class="nav-link" href="/admin/" target="_blank">Admin</a>
             </li>
-            {% endif %}
             <!--<li class="nav-item">-->
                 <!--<a class="nav-link" href="/start/">Start</a>-->
             <!--</li>-->
-            {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="/dev/">Develop</a>
             </li>
-            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="/contrib/">Contributions</a>
             </li>
@@ -32,11 +28,7 @@
                 <a class="nav-link" href="http://elanmanweb.readthedocs.io/en/latest/index.html" target="_blank">Docs</a>
             </li>
             <li class="nav-item">
-                {% if user.is_authenticated %}
-                <a class="nav-link" href="/accounts/logout/">Logout</a>
-                {% else %}
                 <a class="nav-link" href="/accounts/login/">Login</a>
-                {% endif %}
             </li>
         </ul>
     </div>
