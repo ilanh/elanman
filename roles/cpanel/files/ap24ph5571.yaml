@@ -1,8 +1,8 @@
 ---
 #
-clLsapiEnabled: "0"
+clLsapiEnabled: false
 #
-clConvertToEA4: "1"
+clConvertToEA4: true
 #
 #
 eaprofile:

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block head_title %}Region {{ item.shortname }} | {{ block.super }}{% endblock head_title %}
+{% block content %}
+<div class="table-responsive">
+<table class="table table-hover">
+    {% for brandname in brands %}
+    {% for rolename in roles if not rolename.addon %}
+    <thead>
+    <tr>
+        <th>{{ brandname.shortname }} {{ rolename.shortname }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for nodename in servernodes %}
+    {% if nodename.brand == brandname.id and nodename.role == rolename.id and nodename.region == item.id %}
+    <tr>
+        <td>{{ nodename.fullname }}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

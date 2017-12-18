@@ -1,0 +1,8 @@
+---
+  - name: "include static portal vars"
+    include_vars: "static_portal.yaml"
+    when: createstaticportal
+
+  - name: "create static portal"
+    include_tasks: "static_portal.yaml"
+    when: createstaticportal

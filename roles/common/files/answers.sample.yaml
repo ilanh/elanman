@@ -7,14 +7,19 @@
 # 
 # This file is a YAML file and it's content is imported into the Ansible playbook as vars to generate another playbook in another directory on another server.
 # Using the generated playbook the above company can manage the configuration for all the servers and maintain standars over different server role types
-answerfileversion: "0.1"
+answerfileversion: "0.2"
 # Version of sample file reflected from elanman version
+answerfilename: "SampleAnswer"
+# descriptive text about this file
 whmapilogs: "/var/log/whmapi"
 # directory for whmapi call logs
 creategitignore: false
 # should the script create .gitignore file indestination directory
 createansiblehosts: true
 # Should the script create /etc/ansible/hosts.new file for easy ad-hoc ansible commands
+#
+createstaticportal: true
+# Should the script create static Management Portal at { destinationDir }/static/html/
 #
 regions:
     - { id: 'r1', shortname: 'region1', desc: 'region number 1' } 

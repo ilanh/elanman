@@ -1,0 +1,16 @@
+---
+  - name: "make sure static directory exists"
+    file:
+      path: "{{ destinationDir }}/{{ staticDir }}/"
+      state: directory
+
+  - name: "make sure static HTML subdirectory exists"
+    file:
+      path: "{{ destinationDir }}/{{ staticDir }}/html/"
+      state: directory
+
+  - name: "create region files"
+    template:
+      src: "region.html"
+      dest: "{{ destinationDir }}/{{ staticDir }}/html/{{ item.shortname }}.html"
+    with_items: "{{ regions }}"

@@ -3,6 +3,7 @@
   roles:
     - common
     - cpanel
+    - post
   vars:
     destinationDir: "~/myelanman"
-    makefileversion: "0.1"
+    makefileversion: "0.2"
