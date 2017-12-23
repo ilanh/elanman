@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Region {{ item.shortname }} | {{ answerfilename }}</title>
+    <title>Role {{ item.shortname }} | {{ answerfilename }}</title>
     {% include 'css.html' %}
 </head>
 <body>
@@ -24,18 +24,18 @@
                         <th>Full name</th>
                         <th>IP Address</th>
                         <th>Group</th>
-                        <th>Role</th>
+                        <th>Region</th>
                         <th>Brand</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for node in servernodes %}
-                    {% if node.region == item.id %}
+                    {% if node.role == item.id %}
                     <tr>
                         <td>{{ node.fullname }}</td>
                         <td>{{ node.ipaddress }}</td>
                         <td>{{ node.logicalgroup }}</td>
-                        <td>{{ node.role.desc }}</td>
+                        <td>{{ node.region.desc }}</td>
                         <td>{{ node.brand.desc }}</td>
                     </tr>
                     {% endif %}

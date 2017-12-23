@@ -12,9 +12,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="#" target="_blank">new</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">same</a>
-            </li>
         </ul>
         <ul class="nav navbar-nav">
             <li class="dropdown">
@@ -22,6 +19,16 @@
                 <ul class="dropdown-menu">
                     {% for region in regions %}
                     <li><a href="./{{ region.shortname }}.html">{{ region.desc }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Roles<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {% for role in roles %}
+                    <li><a href="./{{ role.shortname }}.html">{{ role.desc }}</a></li>
                     {% endfor %}
                 </ul>
             </li>

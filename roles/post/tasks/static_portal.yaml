@@ -9,3 +9,10 @@
       src: "region.html"
       dest: "{{ staticDir }}/{{ item.shortname }}.html"
     with_items: "{{ regions }}"
+
+  - name: "create role files"
+    template:
+      src: "role.html"
+      dest: "{{ staticDir }}/{{ item.shortname }}.html"
+    with_items: "{{ roles }}"
+
