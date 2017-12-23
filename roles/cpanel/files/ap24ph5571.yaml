@@ -7,8 +7,8 @@ clConvertToEA4: true
 #
 eaprofile:
   ver: '0.2'
-  desc: 'Cloudlinux Apache 2.4 php 55 to 7.1'
-  name: 'CloudLinux Basic'
+  desc: 'Apache 2.4 php 5.5 to 7.1'
+  name: 'cPanel Default (em)'
 #
 clEaApache:
     - { package: 'ea-apr' }
@@ -51,7 +51,7 @@ clEaPhpModules:
 #    - { phpmod: 'enchant', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'exif', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'fileinfo', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
-#    - { phpmod: 'fpm', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+    - { phpmod: 'fpm', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'ftp', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'gd', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'gettext', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
@@ -59,7 +59,7 @@ clEaPhpModules:
     - { phpmod: 'iconv', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'imap', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'ldap', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
-    - { phpmod: 'mbstring', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+#    - { phpmod: 'mbstring', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'mcrypt', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'odbc', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'pdo', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
@@ -73,13 +73,13 @@ clEaPhpModules:
 #    - { phpmod: 'tidy', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'xml', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'xmlrpc', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
-    - { phpmod: 'intl', phpsup: 'ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+#    - { phpmod: 'intl', phpsup: 'ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'mysqlnd', phpsup: 'ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'opcache', phpsup: 'ea-php55,ea-php56,ea-php70' }
-    - { phpmod: 'zip', phpsup: 'ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+#    - { phpmod: 'zip', phpsup: 'ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'ioncube', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56' }
-    - { phpmod: 'ioncube5', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56' }
-    - { phpmod: 'ioncube6', phpsup: 'ea-php70' }
+#    - { phpmod: 'ioncube5', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56' }
+#    - { phpmod: 'ioncube6', phpsup: 'ea-php70' }
 #    - { phpmod: 'sourceguardia', phpsup: 'ea-php53,ea-php54,ea-php55,ea-php56,ea-php70' }
 #    - { phpmod: 'mariadb101', phpsup: 'ea-php51,ea-php52' }
 #    - { phpmod: 'mariadb10', phpsup: 'ea-php51,ea-php52' }

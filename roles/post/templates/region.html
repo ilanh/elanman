@@ -17,14 +17,13 @@
     </div>
     <div class="row">
         <div class="col">
-            {% include 'js-pre.html' %}
             <div class="table-responsive">
                 <table class="table table-hover">
                     {% for brandname in brands %}
                     {% for rolename in roles if not rolename.addon %}
                     <thead>
                     <tr>
-                        <th>{{ brandname.shortname }} {{ rolename.shortname }}</th>
+                        <th class="thead-dark">{{ brandname.shortname }} {{ rolename.shortname }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,6 +32,8 @@
                     %}
                     <tr>
                         <td>{{ nodename.fullname }}</td>
+                        <td>{{ nodename.ipaddress }}</td>
+                        <td>{{ nodename.logicalgroup }}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}
@@ -41,12 +42,10 @@
                     {% endfor %}
                 </table>
             </div>
-            {% include 'js-post.html' %}
         </div>
     </div>
-    <div class="row">
-    </div>
 </div>
+{% include 'js.html' %}
 </body>
 </html>
 
