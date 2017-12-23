@@ -19,27 +19,28 @@
         <div class="col">
             <div class="table-responsive">
                 <table class="table table-hover">
-                    {% for brandname in brands %}
-                    {% for rolename in roles if not rolename.addon %}
                     <thead>
-                    <tr>
-                        <th class="thead-dark">{{ brandname.shortname }} {{ rolename.shortname }}</th>
+                    <tr class="thead-dark">
+                        <th>Full name</th>
+                        <th>IP Address</th>
+                        <th>Group</th>
+                        <th>Role</th>
+                        <th>Brand</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for nodename in servernodes %}
-                    {% if nodename.brand == brandname.id and nodename.role == rolename.id and nodename.region == item.id
-                    %}
+                    {% for node in servernodes %}
+                    {% if node.region == item.id %}
                     <tr>
-                        <td>{{ nodename.fullname }}</td>
-                        <td>{{ nodename.ipaddress }}</td>
-                        <td>{{ nodename.logicalgroup }}</td>
+                        <td>{{ node.fullname }}</td>
+                        <td>{{ node.ipaddress }}</td>
+                        <td>{{ node.logicalgroup }}</td>
+                        <td>{{ node.role }}</td>
+                        <td>{{ node.brand }}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}
-                    {% endfor %}
                     </tbody>
-                    {% endfor %}
                 </table>
             </div>
         </div>
@@ -48,4 +49,3 @@
 {% include 'js.html' %}
 </body>
 </html>
-
