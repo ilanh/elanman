@@ -4,13 +4,8 @@
       path: "{{ staticDir }}/"
       state: directory
 
-  - name: "make sure static HTML subdirectory exists"
-    file:
-      path: "{{ staticDir }}/html/"
-      state: directory
-
   - name: "create region files"
     template:
       src: "region.html"
-      dest: "{{ staticDir }}/html/{{ item.shortname }}.html"
+      dest: "{{ staticDir }}/{{ item.shortname }}.html"
     with_items: "{{ regions }}"
