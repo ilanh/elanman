@@ -6,5 +6,5 @@
     - post
   vars:
     destinationDir: "~/myelanman"
-    staticDir: "static"
+    staticDir: "~/myelanman/static"
     makefileversion: "0.2"
