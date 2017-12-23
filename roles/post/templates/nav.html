@@ -18,7 +18,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Regions<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     {% for region in regions %}
-                    <li><a href="./{{ region.shortname }}.html">{{ region.shortname }}</a></li>
+                    <li><a class="nav-link" href="./{{ region.shortname }}.html">{{ region.shortname }}</a></li>
                     {% endfor %}
                 </ul>
             </li>
@@ -28,7 +28,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Roles<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     {% for role in roles %}
-                    <li><a href="./{{ role.shortname }}.html">{{ role.shortname }}</a></li>
+                    <li><a class="nav-link" href="./{{ role.shortname }}.html">{{ role.shortname }}</a></li>
                     {% endfor %}
                 </ul>
             </li>
