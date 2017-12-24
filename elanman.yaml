@@ -6,5 +6,5 @@
     - post
   vars:
     destinationDir: "~/myelanman"
-    staticDir: "~/myelanman/static"
-    makefileversion: "0.2"
+    staticDir: "{{ destinationDir }}/static"
+    makefileversion: "0.12"

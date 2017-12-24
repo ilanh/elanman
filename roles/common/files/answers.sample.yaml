@@ -7,9 +7,9 @@
 # 
 # This file is a YAML file and it's content is imported into the Ansible playbook as vars to generate another playbook in another directory on another server.
 # Using the generated playbook the above company can manage the configuration for all the servers and maintain standars over different server role types
-answerfileversion: "0.2"
+answerfileversion: "0.12"
 # Version of sample file reflected from elanman version
-answerfilename: "SampleAnswer"
+answerfilename: "SampleAnswers"
 # descriptive text about this file
 whmapilogs: "/var/log/whmapi"
 # directory for whmapi call logs
