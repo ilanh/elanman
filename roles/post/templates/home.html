@@ -34,7 +34,7 @@
                         <td>{{ node.fullname }}</td>
                         <td>{{ node.ipaddress }}</td>
                         <td><a href="https://{{ node.fullname }}:2087" class="badge badge-success" target="_blank">WHM</a></td>
-                        <td>{% if not node.role == mail or not node.role == dns %}<a href="https://{{ node.fullname }}:2083" class="badge badge-primary" target="_blank">cPanel</a>{% else %}NA{% endif %}</td>
+                        <td>{% if not node.role == 'mail' or not node.role == 'dns' %}<a href="https://{{ node.fullname }}:2083" class="badge badge-primary" target="_blank">cPanel</a>{% else %}NA{% endif %}</td>
                         <td><a href="https://{{ node.ipaddress }}:2087" class="badge badge-info" target="_blank">WHM (IP)</a></td>
                     </tr>
                     {% endfor %}
