@@ -4,6 +4,11 @@
       path: "{{ staticDir }}/"
       state: directory
 
+  - name: "create home page"
+    template:
+      src: "home.html"
+      dest: "{{ staticDir }}/index.html"
+
   - name: "create region files"
     template:
       src: "region.html"
