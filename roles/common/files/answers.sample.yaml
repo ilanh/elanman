@@ -42,25 +42,40 @@ logicalgroups:
     - { id: 'test', shortname: 'testing' }
     - { id: 'dev', shortname: 'development' }
 servernodes:
-    - { fullname: 'sh01.brand1.com', role: 'sha', ipaddress: '12.22.33.44', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh02.brand1.com', role: 'sha', ipaddress: '13.22.33.44', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
-    - { fullname: 'sh03.brand1.com', role: 'sha', ipaddress: '14.22.33.44', brand: 'br1', region: 'r3', logicalgroup: 'test' }
-    - { fullname: 'sh01.brand2.com', role: 'sha', ipaddress: '15.22.33.44', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh02.brand2.com', role: 'sha', ipaddress: '16.22.33.44', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
-    - { fullname: 'sh04.brand1.com', role: 'sha', ipaddress: '12.23.33.44', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'sh05.brand1.com', role: 'sha', ipaddress: '13.23.33.44', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
-    - { fullname: 'sh06.brand1.com', role: 'sha', ipaddress: '14.23.33.44', brand: 'br1', region: 'r3', logicalgroup: 'test' }
-    - { fullname: 'sh03.brand2.com', role: 'sha', ipaddress: '15.23.33.44', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh02.brand2.com', role: 'sha', ipaddress: '16.23.33.44', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
-    - { fullname: 'ns01.brand1.com', role: 'dns', ipaddress: '17.22.33.44', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'ns02.brand1.com', role: 'dns', ipaddress: '17.22.33.45', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
-    - { fullname: 'ms01.brand2.com', role: 'mail', ipaddress: '18.22.33.44', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'ns01.brand2.com', role: 'dns', ipaddress: '17.22.33.44', brand: 'br2', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'ns02.brand2.com', role: 'dns', ipaddress: '17.22.33.45', brand: 'br2', region: 'r5', logicalgroup: 'prod' }
-    - { fullname: 'sh05.brand1.com', role: 'sha', ipaddress: '19.22.33.44', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'ftp06.brand1.com', role: 'ftp', ipaddress: '10.22.33.44', brand: 'br1', region: 'r5', logicalgroup: 'dev' }
-    - { fullname: 'ftp03.brand1.com', role: 'ftp', ipaddress: '10.22.33.44', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
-    - { fullname: 'sh07.brand1.com', role: 'sha', ipaddress: '21.22.33.44', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp01.brand1.com', role: 'ftp', ipaddress: '10.21.33.40', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ftp02.brand1.com', role: 'ftp', ipaddress: '10.22.33.40', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ftp03.brand1.com', role: 'ftp', ipaddress: '10.23.33.40', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp04.brand1.com', role: 'ftp', ipaddress: '10.24.33.40', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'ftp05.brand1.com', role: 'ftp', ipaddress: '10.25.33.40', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'ftp01.brand2.com', role: 'ftp', ipaddress: '10.21.66.40', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ftp02.brand2.com', role: 'ftp', ipaddress: '10.22.66.40', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ftp03.brand2.com', role: 'ftp', ipaddress: '10.23.66.40', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp04.brand2.com', role: 'ftp', ipaddress: '10.24.66.40', brand: 'br2', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'ftp05.brand2.com', role: 'ftp', ipaddress: '10.25.66.40', brand: 'br2', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'ms01.brand1.com', role: 'mail', ipaddress: '10.21.34.40', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ms01.brand2.com', role: 'mail', ipaddress: '10.21.64.40', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns01.brand1.com', role: 'dns', ipaddress: '10.21.31.45', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns02.brand1.com', role: 'dns', ipaddress: '10.22.31.45', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ns03.brand1.com', role: 'dns', ipaddress: '10.23.31.45', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ns01.brand2.com', role: 'dns', ipaddress: '10.21.61.45', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns02.brand2.com', role: 'dns', ipaddress: '10.22.61.45', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ns03.brand2.com', role: 'dns', ipaddress: '10.23.61.45', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh01.brand1.com', role: 'sha', ipaddress: '10.21.32.41', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'sh02.brand1.com', role: 'sha', ipaddress: '10.21.32.42', brand: 'br1', region: 'r1', logicalgroup: 'dev' }
+    - { fullname: 'sh03.brand1.com', role: 'sha', ipaddress: '10.22.32.43', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'sh04.brand1.com', role: 'sha', ipaddress: '10.22.32.44', brand: 'br1', region: 'r2', logicalgroup: 'test' }
+    - { fullname: 'sh05.brand1.com', role: 'sha', ipaddress: '10.23.32.45', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh06.brand1.com', role: 'sha', ipaddress: '10.23.32.46', brand: 'br1', region: 'r3', logicalgroup: 'test' }
+    - { fullname: 'sh07.brand1.com', role: 'sha', ipaddress: '10.24.32.47', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'sh08.brand1.com', role: 'sha', ipaddress: '10.25.32.48', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'sh01.brand2.com', role: 'sha', ipaddress: '10.21.62.41', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'sh02.brand2.com', role: 'sha', ipaddress: '10.21.62.42', brand: 'br2', region: 'r1', logicalgroup: 'dev' }
+    - { fullname: 'sh03.brand2.com', role: 'sha', ipaddress: '10.22.62.43', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'sh04.brand2.com', role: 'sha', ipaddress: '10.22.62.44', brand: 'br2', region: 'r2', logicalgroup: 'test' }
+    - { fullname: 'sh05.brand2.com', role: 'sha', ipaddress: '10.23.62.45', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh06.brand2.com', role: 'sha', ipaddress: '10.23.62.46', brand: 'br2', region: 'r3', logicalgroup: 'test' }
+    - { fullname: 'sh07.brand2.com', role: 'sha', ipaddress: '10.24.62.47', brand: 'br2', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'sh08.brand2.com', role: 'sha', ipaddress: '10.25.62.48', brand: 'br2', region: 'r5', logicalgroup: 'prod' }
 easyapacheprofiles:
     - { shortname: 'clap24ph5670ls', desc: 'Cloudlinux Apache 2.4,php 5.6 to 7 with lsapi' }
     - { shortname: 'ap24ph5571', desc: 'cPanel Apache 2.4,php 5.6 to 7.1' }
