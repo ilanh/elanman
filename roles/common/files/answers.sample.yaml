@@ -7,10 +7,20 @@
 # 
 # This file is a YAML file and it's content is imported into the Ansible playbook as vars to generate another playbook in another directory on another server.
 # Using the generated playbook the above company can manage the configuration for all the servers and maintain standars over different server role types
-answerfileversion: "0.1"
-whmapilogs: "/var/log/whmapi" #directory for whmapi call logs
+answerfileversion: "0.12"
+# Version of sample file reflected from elanman version
+answerfilename: "SampleAnswers"
+# descriptive text about this file
+whmapilogs: "/var/log/whmapi"
+# directory for whmapi call logs
 creategitignore: false
+# should the script create .gitignore file indestination directory
 createansiblehosts: true
+# Should the script create /etc/ansible/hosts.new file for easy ad-hoc ansible commands
+#
+createstaticportal: true
+# Should the script create static Management Portal at { destinationDir }/static/html/
+#
 regions:
     - { id: 'r1', shortname: 'region1', desc: 'region number 1' } 
     - { id: 'r2', shortname: 'region2', desc: 'region number 2' }
@@ -32,20 +42,44 @@ logicalgroups:
     - { id: 'test', shortname: 'testing' }
     - { id: 'dev', shortname: 'development' }
 servernodes:
-    - { fullname: 'sh01.brand1.com', role: 'sha', ipaddress: '12.22.33.44', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh02.brand1.com', role: 'sha', ipaddress: '13.22.33.44', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
-    - { fullname: 'sh03.brand1.com', role: 'sha', ipaddress: '14.22.33.44', brand: 'br1', region: 'r3', logicalgroup: 'test' }
-    - { fullname: 'sh01.brand2.com', role: 'sha', ipaddress: '15.22.33.44', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh02.brand2.com', role: 'sha', ipaddress: '16.22.33.44', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
-    - { fullname: 'ns01.brand1.com', role: 'dns', ipaddress: '17.22.33.44', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'ms01.brand2.com', role: 'mail', ipaddress: '18.22.33.44', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
-    - { fullname: 'sh05.brand1.com', role: 'sha', ipaddress: '19.22.33.44', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
-    - { fullname: 'ftp06.brand1.com', role: 'ftp', ipaddress: '10.22.33.44', brand: 'br1', region: 'r5', logicalgroup: 'dev' }
-    - { fullname: 'ftp03.brand1.com', role: 'ftp', ipaddress: '10.22.33.44', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
-    - { fullname: 'sh07.brand1.com', role: 'sha', ipaddress: '21.22.33.44', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp01.brand1.com', role: 'ftp', ipaddress: '10.21.33.40', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ftp02.brand1.com', role: 'ftp', ipaddress: '10.22.33.40', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ftp03.brand1.com', role: 'ftp', ipaddress: '10.23.33.40', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp04.brand1.com', role: 'ftp', ipaddress: '10.24.33.40', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'ftp05.brand1.com', role: 'ftp', ipaddress: '10.25.33.40', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'ftp01.brand2.com', role: 'ftp', ipaddress: '10.21.66.40', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ftp02.brand2.com', role: 'ftp', ipaddress: '10.22.66.40', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ftp03.brand2.com', role: 'ftp', ipaddress: '10.23.66.40', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ftp04.brand2.com', role: 'ftp', ipaddress: '10.24.66.40', brand: 'br2', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'ftp05.brand2.com', role: 'ftp', ipaddress: '10.25.66.40', brand: 'br2', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'ms01.brand1.com', role: 'mail', ipaddress: '10.21.34.40', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ms01.brand2.com', role: 'mail', ipaddress: '10.21.64.40', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns01.brand1.com', role: 'dns', ipaddress: '10.21.31.45', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns02.brand1.com', role: 'dns', ipaddress: '10.22.31.45', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ns03.brand1.com', role: 'dns', ipaddress: '10.23.31.45', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'ns01.brand2.com', role: 'dns', ipaddress: '10.21.61.45', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'ns02.brand2.com', role: 'dns', ipaddress: '10.22.61.45', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'ns03.brand2.com', role: 'dns', ipaddress: '10.23.61.45', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh01.brand1.com', role: 'sha', ipaddress: '10.21.32.41', brand: 'br1', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'sh02.brand1.com', role: 'sha', ipaddress: '10.21.32.42', brand: 'br1', region: 'r1', logicalgroup: 'dev' }
+    - { fullname: 'sh03.brand1.com', role: 'sha', ipaddress: '10.22.32.43', brand: 'br1', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'sh04.brand1.com', role: 'sha', ipaddress: '10.22.32.44', brand: 'br1', region: 'r2', logicalgroup: 'test' }
+    - { fullname: 'sh05.brand1.com', role: 'sha', ipaddress: '10.23.32.45', brand: 'br1', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh06.brand1.com', role: 'sha', ipaddress: '10.23.32.46', brand: 'br1', region: 'r3', logicalgroup: 'test' }
+    - { fullname: 'sh07.brand1.com', role: 'sha', ipaddress: '10.24.32.47', brand: 'br1', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'sh08.brand1.com', role: 'sha', ipaddress: '10.25.32.48', brand: 'br1', region: 'r5', logicalgroup: 'prod' }
+    - { fullname: 'sh01.brand2.com', role: 'sha', ipaddress: '10.21.62.41', brand: 'br2', region: 'r1', logicalgroup: 'prod' }
+    - { fullname: 'sh02.brand2.com', role: 'sha', ipaddress: '10.21.62.42', brand: 'br2', region: 'r1', logicalgroup: 'dev' }
+    - { fullname: 'sh03.brand2.com', role: 'sha', ipaddress: '10.22.62.43', brand: 'br2', region: 'r2', logicalgroup: 'prod' }
+    - { fullname: 'sh04.brand2.com', role: 'sha', ipaddress: '10.22.62.44', brand: 'br2', region: 'r2', logicalgroup: 'test' }
+    - { fullname: 'sh05.brand2.com', role: 'sha', ipaddress: '10.23.62.45', brand: 'br2', region: 'r3', logicalgroup: 'prod' }
+    - { fullname: 'sh06.brand2.com', role: 'sha', ipaddress: '10.23.62.46', brand: 'br2', region: 'r3', logicalgroup: 'test' }
+    - { fullname: 'sh07.brand2.com', role: 'sha', ipaddress: '10.24.62.47', brand: 'br2', region: 'r4', logicalgroup: 'prod' }
+    - { fullname: 'sh08.brand2.com', role: 'sha', ipaddress: '10.25.62.48', brand: 'br2', region: 'r5', logicalgroup: 'prod' }
 easyapacheprofiles:
-    - { shortname: 'clap24ph5670ls', desc: 'Cloudlinux Apache 2.4,php 56 to 7.01 with lsapi' }
-    - { shortname: 'ap24ph5571', desc: 'Cloudlinux Apache 2.4,php 56 to 7.01 with lsapi' }
+    - { shortname: 'clap24ph5670ls', desc: 'Cloudlinux Apache 2.4,php 5.6 to 7 with lsapi' }
+    - { shortname: 'ap24ph5571', desc: 'cPanel Apache 2.4,php 5.6 to 7.1' }
+    - { shortname: 'ap24ph5670', desc: 'cPanel Apache 2.4,php 5.6 to 7' }
 configobjectvalues:
     - { id: 'udpinwhmsh', object: 'udpportsin', value: '20,21,53,161,162', desc: 'common whm udp ports allowed in' }
     - { id: 'tcpinwhmsh', object: 'tcpportsin', value: '20,21,22,25,53,80,110,143,161,162,443,465,587,993,995,2077,2078,2082,2083,2086,2087,2095,2096,1243,3306', desc: 'common whm tcp ports allowed in' }

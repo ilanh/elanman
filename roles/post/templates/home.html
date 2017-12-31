@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page {{ answerfilename }}</title>
+    {% include 'css.html' %}
+</head>
+<body>
+<div class='container'>
+    <div class="row">
+        <div class="col">
+            {% include 'nav.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="thead-dark">
+                        <th>Full name</th>
+                        <th>IP Address</th>
+                        <th>WHM</th>
+                        <th>cPanel</th>
+                        <th>WHM (IP Link)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for node in servernodes %}
+                    <tr>
+                        <td>{{ node.fullname }}</td>
+                        <td>{{ node.ipaddress }}</td>
+                        <td><a href="https://{{ node.fullname }}:2087" class="badge badge-success" target="_blank">WHM</a></td>
+                        <td>{% if not node.role == 'mail' and not node.role == 'dns' %}<a href="https://{{ node.fullname }}:2083" class="badge badge-primary" target="_blank">cPanel</a>{% else %}NA{% endif %}</td>
+                        <td><a href="https://{{ node.ipaddress }}:2087" class="badge badge-info" target="_blank">WHM (IP)</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'js.html' %}
+</body>
+</html>
