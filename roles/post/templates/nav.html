@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">{{ answerfilename }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/portal/">Portal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://elanman.org" target="_blank">elanman</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Regions<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {% for region in regions %}
+                    <li><a class="nav-link" href="./{{ region.shortname }}.html">{{ region.shortname }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Roles<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    {% for role in roles if not role.addon %}
+                    <li><a class="nav-link" href="./{{ role.shortname }}.html">{{ role.shortname }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="http://elanmanweb.readthedocs.io/en/latest/index.html"
+                   target="_blank">Docs</a>
+            </li>
+        </ul>
+    </div>
+</nav>

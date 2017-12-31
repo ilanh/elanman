@@ -1,0 +1,23 @@
+---
+  - name: "make sure static directory exists"
+    file:
+      path: "{{ staticDir }}/"
+      state: directory
+
+  - name: "create home page"
+    template:
+      src: "home.html"
+      dest: "{{ staticDir }}/index.html"
+
+  - name: "create region files"
+    template:
+      src: "region.html"
+      dest: "{{ staticDir }}/{{ item.shortname }}.html"
+    with_items: "{{ regions }}"
+
+  - name: "create role files"
+    template:
+      src: "role.html"
+      dest: "{{ staticDir }}/{{ item.shortname }}.html"
+    with_items: "{{ roles }}"
+

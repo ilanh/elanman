@@ -1,13 +1,14 @@
 ---
 #
-clLsapiEnabled: true
+clLsapiEnabled: false
 #
 clConvertToEA4: true
 #
-eaprofile: 
-  ver: "0.2"
-  desc: "Cloudlinux With LSAPI php 5.6 and 7"
-  name: "CloudLinux LSAPI basic (em)"
+#
+eaprofile:
+  ver: '0.2'
+  desc: 'Apache 2.4 php 5.6 to 7.0'
+  name: 'cPanel Default extended (em)'
 #
 clEaApache:
     - { package: 'ea-apr' }
@@ -25,9 +26,9 @@ clEaApache:
     - { package: 'ea-apache24-mod_suexec' }
 #    - { package: 'ea-apache24-mod_suphp' }
     - { package: 'ea-apache24-mod_security2' }
-    - { package: 'ea-apache24-mod_hostinglimits' }
+#    - { package: 'ea-apache24-mod_hostinglimits' }
     - { package: 'ea-apache24-mod_proxy_fcgi' }
-    - { package: 'ea-apache24-mod_lsapi' }
+#    - { package: 'ea-apache24-mod_lsapi' }
 clEaPhpVersions:
 #    - { phpver: 'ea-php71' ,phptag: '7.1' }
     - { phpver: 'ea-php70' ,phptag: '7.0' }
@@ -50,7 +51,7 @@ clEaPhpModules:
 #    - { phpmod: 'enchant', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'exif', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'fileinfo', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
-#    - { phpmod: 'fpm', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+    - { phpmod: 'fpm', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'ftp', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'gd', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'gettext', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
@@ -67,7 +68,7 @@ clEaPhpModules:
 #    - { phpmod: 'process', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'pspell', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'snmp', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
-#    - { phpmod: 'soap', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
+    - { phpmod: 'soap', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'sockets', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
 #    - { phpmod: 'tidy', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }
     - { phpmod: 'xml', phpsup: 'ea-php51,ea-php52,ea-php53,ea-php54,ea-php55,ea-php56,ea-php70,ea-php71' }

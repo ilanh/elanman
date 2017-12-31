@@ -1,0 +1,90 @@
+---
+## content for var section{{ item.shortname }}
+#
+#
+{% for internalvar in listitemobject %}
+
+# content {{ internalvar.desc }}
+{{ item.shortname }}{{ internalvar.shortname }}:
+{% for objects in somebjects if objects.internalvar == internalvar.id -%}{% for values in somevalues if values.object == objects.id %}
+{% for levels in somelevels if levels.value == values.id and levels.taskcallkey == item.id %}
+#{% if not internalvar.listobject %} {{ objects.desc }}{% endif %}
+  {% if internalvar.listobject %}{{ '- { ' }}{% endif %}{{ objects.shortname }}: '{{ values.value  }}'{% if section.listobject %}, desc: '{{ objects.desc }}'{{ ' }' }}{% endif %}
+{% endfor %}{%- endfor %}{% endfor %}{% endfor %}
+
+
+# Something for {{ item.shortname }}
+{% for internalvar in listitemobject if internalvar.field == item.field %}
+"{{ internalvar.shortname }}"
+{% endfor %}
+
+
+# inventory file for {{ item.shortname }}
+
+# regions and roles
+{% for regionname in regions %}
+{% for rolename in roles if not rolename.addon %}
+
+# All servers with role {{ rolename.shortname }} at {{ regionname.shortname }}
+[{{ regionname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.region == regionname.id and nodename.role == rolename.id and nodename.logicalgroup == item.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+# brands and roles
+{% for brandname in brands %}
+{% for rolename in roles if not rolename.addon %}
+
+[{{ brandname.shortname }}-{{ rolename.shortname }}]
+{% for nodename in servernodes %}
+{% if nodename.brand == brandname.id and nodename.role == rolename.id and nodename.logicalgroup == item.id %}
+{{ nodename.fullname }}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+
+# roles children
+{% for rolename in roles if not rolename.addon %}
+
+# define children of {{ rolename.shortname }}
+[{{ rolename.shortname }}:children]
+{% for regionname in regions %}
+{{ regionname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+# region children
+{% for regionname in regions %}
+
+# define children of {{ regionname.shortname }}
+[{{ regionname.shortname }}:children]
+{% for rolename in roles if not rolename.addon %}
+{{ regionname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+# brand children
+{% for brandname in brands %}
+
+# define children of {{ brandname.shortname }}
+[{{ brandname.shortname }}:children]
+{% for rolename in roles if not rolename.addon %}
+{{ brandname.shortname }}-{{ rolename.shortname }}
+{% endfor %}
+{% endfor %}
+
+
+[all:vars]
+whm_installed=true
+whmapilogs="{{ whmapilogs }}"
+develop=false
+clCagefsEnabled=true
+c1CagefsRelocate=true
+clAltphpEnabled=true
+clLsapiEnabled=true
+csfTestMode='0'

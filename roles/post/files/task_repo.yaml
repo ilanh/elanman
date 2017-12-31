@@ -1,0 +1,130 @@
+---
+  - name: "copy a file from files/ directory to target"
+    copy:
+      src: "filename"
+      dest: "{{ destinationDir }}/path/filename"
+      mode: 0755
+
+  - name: "copy multiple items based on some list in answerfile or defaultobjects"
+    copy:
+      src: "{{ item.shortname }}.extention"
+      dest: "{{ destinationDir }}/path/{{ item.shortname }}.extention"
+    with_items: "{{ listitemname }}"
+
+  - name: "create a link"
+    file: src=/path/subpath/ dest=/newpath/subpath/linkname state=link
+    tags: relatedtag
+    when: something
+
+  - name: "create single template"
+    template:
+      src: "templatename.j2"
+      dest: "{{ destinationDir }}/path/filename.extention"
+      backup: true
+
+  - name: "create multiple templates"
+    template:
+      src: "templatename.j2"
+      dest: "{{ destinationDir }}/path/{{ item.shortname }}/filename.extention"
+    with_items: "{{ listitemname }}"
+    when: not item.booleanfield
+
+  - name: "make sure some directory exists"
+    file:
+      path: "{{ destinationDir }}/path/"
+      state: directory
+
+  - name: create multiple directories
+    file:
+      path: "{{ destinationDir }}/{{ item }}"
+      state: directory
+    with_items:
+      - directoryname1
+      - directoryname2
+
+  - name: "Check if some file exists"
+    stat:
+      path: "{{ destinationDir }}/path/filename"
+    register: filenameFile
+
+  - name: "register file"
+    shell: cat /path/filename
+    tags:
+      - always
+    register: filenameContent
+    when: filenameFile.stat.exists
+
+  - name: "copy a file from files/ directory if previous was not found"
+    copy:
+      src: "filename"
+      dest: "{{ destinationDir }}/path/filename"
+      mode: 0755
+    when: not filenameFile.stat.exists
+
+  - name: "run shell command"
+    shell: /path/command
+    when: filenameContent.stdout.find('string') != -1
+
+  - name: "copy file from target to loacl"
+    fetch:
+      src: "{{ destinationDir }}/path/filename"
+      dest: "path/filename{{ variable }}.extention"
+      flat: yes
+      # flat - don't create subdirectory structure under path
+
+  - name: "include additional variables"
+    include_vars: "varable_list.yaml"
+
+  - name: "run additional tasks"
+    include_tasks: "filename-{{ variablename }}.extention"
+    when: something
+
+  - name: "install package"
+    yum: name=packagename state=installed
+
+  - name: "run shell command"
+    shell: /path/command
+    register: commandoutput
+    failed_when: "'string' in commandoutput.stdout"
+
+  - name: "install package"
+    yum: name=packagename state=installed
+    when: commandoutput.stdout.find('string') != -1
+    # run when command output has string in it
+
+  - name: "run multiple tasks for a list item"
+    include_tasks: tasksfilename.yaml
+    with_items: "{{ listitemname }}"
+    loop_control:
+      loop_var: internalvar
+
+  # content of tasksfilename.yaml #
+  - name: "create subdirectories under {{ destinationDir }}/path/{{ internalvar.shortname }}"
+    file:
+      path: "{{ destinationDir }}/path/{{ internalvar.shortname }}/{{ item }}"
+      state: directory
+    with_items:
+     - subdir1
+     - subdir2
+
+  - name: "create template for {{ internalvar.shortname }}"
+    template:
+      src: "{{ intenalvar.shortname }}.j2"
+      dest: "{{ destinationDir }}/path/{{ item.shortname }}/path/{{ internalvar.shortname }}.extention"
+    with_items: "{{ listitemsubname }}"
+    when: item.field == internalvar.field
+
+  # content of tasksfilename.yaml #
+
+  - name: "download file"
+    get_url: url=http://url/filename.extention dest=/path/filename.extention
+
+  - name: "extract file"
+    unarchive: src=/path/filename.extention dest=/path/directory copy=no
+
+  - name: "delete file"
+    file: path=/path/filename.extention state=absent
+
+  - name: "output to local"
+    debug: msg="message"
+

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Role {{ item.shortname }} | {{ answerfilename }}</title>
+    {% include 'css.html' %}
+</head>
+<body>
+<div class='container'>
+    <div class="row">
+        <div class="col">
+            {% include 'nav.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="thead-dark">
+                        <th>Full name</th>
+                        <th>IP Address</th>
+                        <th>Group</th>
+                        <th>Region</th>
+                        <th>Brand</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for node in servernodes %}
+                    {% if node.role == item.id %}
+                    <tr>
+                        <td>{{ node.fullname }}</td>
+                        <td>{{ node.ipaddress }}</td>
+                        <td>{{ node.logicalgroup }}</td>
+                        <td>{{ node.region }}</td>
+                        <td>{{ node.brand }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'js.html' %}
+</body>
+</html>

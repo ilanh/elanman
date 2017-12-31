@@ -3,6 +3,8 @@
   roles:
     - common
     - cpanel
+    - post
   vars:
     destinationDir: "~/myelanman"
-    makefileversion: "0.1"
+    staticDir: "{{ destinationDir }}/static"
+    makefileversion: "0.12"
