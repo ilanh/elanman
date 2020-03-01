@@ -15,7 +15,7 @@
 - name: "Check if csf script exists"
   stat:
     path: /usr/sbin/csf
-  tags: csf
+  tags: csf,csfConfShared
   register: csfExists
 
 - name: "Check if cxs script exists"
