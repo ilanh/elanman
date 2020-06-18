@@ -1,0 +1,14 @@
+---
+  - name: create app folders
+    file:
+      path: "{{ djangoDir }}/{{ installed.name }}"
+      state: directory
+
+  - name: "deploy app files"
+    template:
+      src: "app_{{ item }}.py.j2"
+      dest: "{{ djangoDir }}/{{ installed.name }}/{{ item }}.py"
+    with_items:
+     - apps
+     - models
+     - views

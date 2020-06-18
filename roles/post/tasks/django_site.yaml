@@ -1,0 +1,34 @@
+---
+  - name: "make sure django directory exists"
+    file:
+      path: "{{ djangoDir }}/"
+      state: directory
+
+  - name: "include django site vars"
+    include_vars: "django_site.yaml"
+
+  - name: "create manage.py"
+    template:
+      src: "manage.py.j2"
+      dest: "{{ djangoDir }}/manage.py"
+
+  - name: "make sure app directory exists"
+    file:
+      path: "{{ djangoDir }}/{{ settings.app_name }}/"
+      state: directory
+
+  - name: "deploy project files"
+    template:
+      src: "{{ item }}.py.j2"
+      dest: "{{ djangoDir }}/{{ settings.app_name }}/{{ item }}.py"
+    with_items:
+     - asgi
+     - urls
+     - wsgi
+     - settings
+
+  - name: deploy app files
+    include_tasks: mkapp.yaml
+    with_items: "{{ installed_apps }}"
+    loop_control:
+      loop_var: installed

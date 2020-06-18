@@ -2,4 +2,6 @@
 ### Ansible template
 *.retry
 .idea/
-
+.DS_Store
+managers
+files/answers-*

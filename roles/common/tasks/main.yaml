@@ -47,7 +47,7 @@
   - name: "create /etc/ansible/hosts.new file"
     template:
       src: "ansiblehosts.j2"
-      dest: "/etc/ansible/hosts.new"
+      dest: "{{ destinationDir }}/hosts.new"
     when: createansiblehosts
 
   - name: create base directory

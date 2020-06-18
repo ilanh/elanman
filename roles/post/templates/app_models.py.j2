@@ -1,0 +1,30 @@
+from django.db import models
+{% for model_import in model_imports if model_import.app == installed.name %}
+from {{ model_import.source }} import {{ model_import.package }}
+{% endfor %}
+
+{% for model_const in model_consts if model_const.app == installed.name %}
+{{ model_const.const }} = {{ model_const.value }}
+{% endfor %}
+
+{% for model_class in model_classes if model_class.app == installed.name %}
+class {{ model_class.class_name }}(models.Model):
+{% for model_field in model_fields if model_field.class == model_class.class_name %}
+    {{ model_field.name }} = models.{{ model_field.type }}({{ model_field.value }})
+{% endfor %}
+
+{% for model_field in model_fields if model_field.class == model_class.class_name and model_field.orderby == true %}
+    class Meta:
+        ordering = ('{{ model_field.name }}', )
+{% endfor %}
+
+{% for model_function in model_functions if model_function.class == model_class.class_name %}
+    def {{ model_function.name }}({{ model_function.args }}):
+{% for function_const in model_func_consts if function_const.class == model_class.class_name and function_const.function == model_function.name %}
+        {{ function_const.const }} = {{ function_const.value }}
+{% endfor %}
+{% for function_action in model_func_actions if function_action.class == model_class.class_name and function_action.function == model_function.name %}
+        {{ function_action.value }}
+{% endfor %}
+{% endfor %}
+{% endfor %}

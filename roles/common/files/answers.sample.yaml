@@ -19,7 +19,10 @@ createansiblehosts: true
 # Should the script create /etc/ansible/hosts.new file for easy ad-hoc ansible commands
 #
 createstaticportal: true
-# Should the script create static Management Portal at { destinationDir }/static/html/
+# Should the script create static Management Portal at { destinationDir }/static/
+#
+createdjangosite: true
+# Should the script create django site at { destinationDir }/django/
 #
 regions:
     - { id: 'r1', shortname: 'region1', desc: 'region number 1' } 
@@ -29,7 +32,7 @@ regions:
     - { id: 'r5', shortname: 'region5', desc: 'region number 5' }
 brands:
     - { id: 'br1', shortname: 'brand1', desc: 'brand number 1', domain: 'brand1.com' }
-    - { id: 'br2', shortname: 'brand2', desc: 'brand number 2', domain: 'brand2.com' }
+    - { id: 'br2', shortname: 'brand2', desc: 'brand number 2', domain: 'brand2.eu' }
 roles:
     - { id: 'comn', shortname: 'common', desc: 'common role, included in all roles first', addon: true }
     - { id: 'sha', shortname: 'sharedhosting', desc: 'Shared hosting servers', addon: false }
@@ -247,4 +250,3 @@ whmapiconfiglevels:
     - { value: 'vbkdirmnt', role: 'sha', brand: 0, region: 0 }
     - { value: 'vbktypecomp', role: 'sha', brand: 0, region: 0 }
     - { value: 'vbkdeletelocalen', role: 'sha', brand: 0, region: 0 }
-   

@@ -1,0 +1,30 @@
+{% for view_import in view_imports if view_import.app == installed.name %}
+from {{ view_import.source }} import {{ view_import.package }}
+{% endfor %}
+from {{ installed.name }}.models import {{ installed.class_name }}
+from {{ installed.name }}.permissions import IsOwnerOrReadOnly
+from {{ installed.name }}.serializers import {{ installed.class_name }}Serializer, UserSerializer
+
+{% for view_const in view_consts if view_const.app == installed.name %}
+{{ view_const.const }} = {{ view_const.value }}
+{% endfor %}
+{% for view_class in view_classes if view_class.app == installed.name %}
+
+class {{ view_class.class_name }}ViewSet(viewsets.ModelViewSet):
+{% for view_field in view_fields if view_field.class == view_class.class_name %}
+    {{ view_field.name }} = views.{{ view_field.type }}({{ view_field.value }})
+{% endfor %}
+{% for view_function in view_functions if view_function.class == view_class.class_name %}
+
+{% if view_function.pre %}
+    @{{ view_function.pre }}({{ view_function.pre_options }})
+{% endif %}
+    def {{ view_function.name }}({{ view_function.args }}):
+{% for function_const in view_func_consts if function_const.class == view_class.class_name and function_const.function == view_function.name %}
+        {{ function_const.const }} = {{ function_const.value }}
+{% endfor %}
+{% for function_action in view_func_actions if function_action.class == view_class.class_name and function_action.function == view_function.name %}
+        {{ function_action.action }}({{ function_action.value }})
+{% endfor %}
+{% endfor %}
+{% endfor %}

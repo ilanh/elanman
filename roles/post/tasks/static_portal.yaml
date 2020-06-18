@@ -4,6 +4,9 @@
       path: "{{ staticDir }}/"
       state: directory
 
+  - name: "include static portal vars"
+    include_vars: "static_portal.yaml"
+    
   - name: "create home page"
     template:
       src: "home.html"

@@ -1,0 +1,70 @@
+---
+settings:
+  app_name: 'elanman'
+  app_desc: 'eLanman server manager'
+installed_apps:
+  - { name: 'snippets', class_name: 'Snippets' }
+model_imports:
+  - { app: '', source: '', package: '' }
+  - { app: 'snippets', source: 'pygments', package: 'highlight' }
+  - { app: 'snippets', source: 'pygments.formatters.html', package: 'HtmlFormatter' }
+  - { app: 'snippets', source: 'pygments.lexers', package: 'get_all_lexers, get_lexer_by_name' }
+  - { app: 'snippets', source: 'pygments.styles', package: 'get_all_styles' }
+model_consts:
+  - { app: '', const: '', value: '' }
+  - { app: 'snippets', const: 'LEXERS', value: '[item for item in get_all_lexers() if item[1]]' }
+  - { app: 'snippets', const: 'LANGUAGE_CHOICES', value: 'sorted([(item[1][0], item[0]) for item in LEXERS])' }
+  - { app: 'snippets', const: 'STYLE_CHOICES', value: 'sorted((item, item) for item in get_all_styles())' }    
+model_classes:
+  - { app: '', class_name: '', args: '' }
+  - { app: 'snippets', class_name: 'Snippet', args: '' }
+model_fields:
+  - { class: '', name: '', type: '', value: '', orderby: false }
+  - { class: 'Snippet', name: 'created', type: 'DateTimeField', value: 'auto_now_add=True', orderby: true }
+  - { class: 'Snippet', name: 'title', type: 'CharField', value: 'max_length=100, blank=True, default=""', orderby: false }
+  - { class: 'Snippet', name: 'code', type: 'TextField', value: '', orderby: false }
+  - { class: 'Snippet', name: 'linenos', type: 'BooleanField', value: 'default=False', orderby: false }
+  - { class: 'Snippet', name: 'language', type: 'CharField', value: 'choices=LANGUAGE_CHOICES, default="python", max_length=100', orderby: false }
+  - { class: 'Snippet', name: 'style', type: 'CharField', value: 'choices=STYLE_CHOICES, default="friendly", max_length=100', orderby: false }
+  - { class: 'Snippet', name: 'owner', type: 'ForeignKey', value: "'auth.User', related_name='snippets', on_delete=models.CASCADE", orderby: false }
+  - { class: 'Snippet', name: 'highlighted', type: 'TextField', value: '', orderby: false }
+model_functions:
+  - { class: '', name: '', args: '' }
+  - { class: 'Snippet', name: 'save', args: 'self, *args, **kwargs' }
+model_func_consts:
+  - { class: '', function: '', const: '', value: '' }
+  - { class: 'Snippet', function: 'save', const: 'lexer', value: 'get_lexer_by_name(self.language)' }
+  - { class: 'Snippet', function: 'save', const: 'linenos', value: 'self.linenos and "table" or False' }
+  - { class: 'Snippet', function: 'save', const: 'options', value: 'self.title and {"title": self.title} or {}' }
+  - { class: 'Snippet', function: 'save', const: 'formatter', value: 'HtmlFormatter(style=self.style, linenos=linenos, full=True, **options)' }
+  - { class: 'Snippet', function: 'save', const: 'self.highlighted', value: 'highlight(self.code, lexer, formatter)' }
+model_func_actions:
+  - { class: '', function: '', action: '', value: '' }
+  - { class: 'Snippet', function: 'save', action: '', value: 'super(Snippet, self).save(*args, **kwargs)' }
+view_imports:
+  - { app: '', source: '', package: '' }
+  - { app: 'snippets', source: 'django.contrib.auth.models', package: 'User' }
+view_consts:
+  - { app: '', const: '', value: '' }
+view_classes:
+  - { app: '', class_name: '', viewset: '' }
+  - { app: 'snippets', class_name: 'Snippet', viewset: 'ModelViewSet' }
+  - { app: 'snippets', class_name: 'User', viewset: 'ReadOnlyModelViewSet' }
+view_fields:
+  - { class: '', name: '', type: '', value: '', orderby: false }
+  - { class: 'Snippet', name: 'queryset', type: '', value: 'Snippet.objects.all()', orderby: false }
+  - { class: 'Snippet', name: 'serializer_class', type: '', value: 'SnippetSerializer', orderby: false }
+  - { class: 'Snippet', name: 'permission_classes', type: '', value: '(permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)', orderby: false }
+  - { class: 'User', name: 'queryset', type: '', value: 'User.objects.all()', orderby: false }
+  - { class: 'User', name: 'serializer_class', type: '', value: 'UserSerializer', orderby: false }
+view_functions:
+  - { class: '', name: '', args: '', pre: '' }
+  - { class: 'Snippet', name: 'highlight', args: 'self, request, *args, **kwargs', pre: 'action', pre_options: 'detail=True, renderer_classes=[renderers.StaticHTMLRenderer]'}
+  - { class: 'Snippet', name: 'perform_create', args: 'self, serializer', pre: '', pre_options: '' }
+view_func_consts:
+  - { class: '', function: '', const: '', value: '' }
+  - { class: 'Snippet', function: 'highlight', const: 'snippet', value: 'self.get_object()' }
+view_func_actions:
+  - { class: '', function: '', action: '', value: '' }
+  - { class: 'Snippet', function: 'highlight', action: 'return Response', value: 'snippet.highlighted' }
+  - { class: 'Snippet', function: 'perform_create', action: 'serializer.save', value: 'owner=self.request.user' }

@@ -1,8 +1,8 @@
 ---
-  - name: "include static portal vars"
-    include_vars: "static_portal.yaml"
-    when: createstaticportal
-
   - name: "create static portal"
     include_tasks: "static_portal.yaml"
     when: createstaticportal
+
+  - name: "create django site"
+    include_tasks: "django_site.yaml"
+    when: createdjangosite
