@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
 {% for apps in installed_apps %}
-    '{{ apps.name }}.apps.{{ apps.class_name }}',
+    '{{ apps.name }}.apps.{{ apps.class_name }}Config',
 {% endfor %}
 ]
 

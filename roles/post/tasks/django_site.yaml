@@ -27,6 +27,14 @@
      - wsgi
      - settings
 
+  - name: "copy django files"
+    copy:
+      src: "{{ item }}"
+      dest: "{{ djangoDir }}/{{ item }}"
+    with_items:
+      - "Pipfile"
+      - "Makefile"
+
   - name: deploy app files
     include_tasks: mkapp.yaml
     with_items: "{{ installed_apps }}"

@@ -1,0 +1,93 @@
+{% set pk = namespace(value=1) %}
+{% for role in roles %}
+- model: extender.roleobject
+  pk: {{ pk.value }}
+  fields:
+    owner: 1
+    shortname: {{ role.shortname }}
+    exid: {{ role.id }}
+    desc: {{ role.desc }}
+    addon: {{ role.addon }}
+    slug: {{ role.id }}
+    ispublic: true
+    popularity: 0
+{% set pk.value = pk.value + 1 %}
+{% endfor %}
+{% set pk = namespace(value=1) %}
+{% for group in logicalgroups %}
+- model: extender.logicalgroupobject
+  pk: {{ pk.value }}
+  fields:
+    owner: 1
+    shortname: {{ group.shortname }}
+    exid: {{ group.id }}
+    slug: {{ group.id }}
+    ispublic: true
+    popularity: 0
+{% set pk.value = pk.value + 1 %}
+{% endfor %}
+{% set pk = namespace(value=1) %}
+{% for section in configsections %}
+- model: extender.configsectionobject
+  pk: {{ pk.value }}
+  fields:
+    owner: 1
+    shortname: {{ section.shortname }}
+    exid: {{ section.id }}
+    desc: {{ section.desc }}
+    listobject: {{ section.listobject }}
+    slug: {{ section.id }}
+    ispublic: true
+    popularity: 0
+{% set pk.value = pk.value + 1 %}
+{% endfor %}
+{% set pk = namespace(value=1) %}
+{% for task in roletasks %}
+- model: extender.roletaskobject
+  pk: {{ pk.value }}
+  fields:
+    owner: 1
+    shortname: {{ task.shortname }}
+    desc: {{ task.desc }}
+{% set rpk = namespace(value=1) %}
+{% for role in roles %}
+{% if task.role == role.id %}
+    role: {{ rpk.value }}
+    slug: {{ task.shortname }}-{{ role.id }}
+{% endif %}
+{% set rpk.value = rpk.value + 1 %}
+{% endfor %}
+    ispublic: true
+    popularity: 0
+    isdev: false
+    ispublished: true
+{% set pk.value = pk.value + 1 %}
+{% endfor %}
+- model: extender.apiobject
+  pk: 2
+  fields:
+    owner: 1
+    shortname: whm
+    desc: cPanel Web Host Manager
+    slug: whm
+    ispublic: true
+    popularity: 0
+    isdev: false
+    ispublished: true
+
+{% set pk = namespace(value=1) %}
+{% for section in whmapisections %}
+- model: extender.apisectionobject
+  pk: {{ pk.value }}
+  fields:
+    owner: 1
+{% for key, value in section.items() %}
+    {{ key|e }}: {{ value|e }}
+{% endfor %}
+    api: 2
+    slug: {{ section.id }}
+    ispublic: false
+    popularity: 0
+    docurl: null
+{% set pk.value = pk.value + 1 %}
+{% endfor %}

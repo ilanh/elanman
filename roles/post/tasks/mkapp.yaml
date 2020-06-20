@@ -12,3 +12,6 @@
      - apps
      - models
      - views
+     - urls
+     - serializers
+     - permissions

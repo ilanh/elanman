@@ -12,7 +12,7 @@ from {{ installed.name }}.serializers import {{ installed.class_name }}Serialize
 
 class {{ view_class.class_name }}ViewSet(viewsets.ModelViewSet):
 {% for view_field in view_fields if view_field.class == view_class.class_name %}
-    {{ view_field.name }} = views.{{ view_field.type }}({{ view_field.value }})
+    {{ view_field.name }} = {{ view_field.value }}
 {% endfor %}
 {% for view_function in view_functions if view_function.class == view_class.class_name %}
 

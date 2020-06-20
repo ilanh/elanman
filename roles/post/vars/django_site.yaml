@@ -3,7 +3,7 @@ settings:
   app_name: 'elanman'
   app_desc: 'eLanman server manager'
 installed_apps:
-  - { name: 'snippets', class_name: 'Snippets' }
+  - { name: 'snippets', class_name: 'Snippet' }
 model_imports:
   - { app: '', source: '', package: '' }
   - { app: 'snippets', source: 'pygments', package: 'highlight' }
