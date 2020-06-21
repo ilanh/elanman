@@ -9,3 +9,4 @@
     staticDir: "{{ destinationDir }}/static"
     djangoDir: "{{ destinationDir }}/django"
     makefileversion: "0.12"
+    short: false

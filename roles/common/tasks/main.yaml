@@ -6,6 +6,12 @@
       path: "{{ destinationDir }}"
       state: directory
 
+  - name: copy short answers file when ran with  "-e short=true"
+    copy:
+      src: "answers.short.yaml"
+      dest: "{{ destinationDir }}/answers.yaml"
+    when: short|bool
+
   - name: "Check if answer file exists"
     stat:
       path: "{{ destinationDir }}/answers.yaml"
@@ -15,7 +21,7 @@
     copy:
       src: "answers.sample.yaml"
       dest: "{{ destinationDir }}/answers.yaml"
-    when: not answerfile.stat.exists
+    when: not answerfile.stat.exists 
 
   - name: set runtimevar
     set_fact:

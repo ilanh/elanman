@@ -1,0 +1,28 @@
+setup:
+	python -m pip install pipenv
+	pipenv install
+	pipenv run python manage.py makemigrations
+	pipenv run python manage.py migrate
+
+setup_dev: setup
+	pipenv install --dev
+
+test: setup_dev
+	pipenv run python manage.py check
+	pipenv run python manage.py test
+
+collect: clean setup
+	pipenv run python manage.py collectstatic
+
+shell: setup_dev
+	pipenv shell
+
+full_run: collect
+	pipenv run python manage.py runserver 0.0.0.0:8000
+
+run:
+	pipenv run python manage.py runserver 0.0.0.0:8000
+
+clean:
+	rm -f Pipfile.lock db.sqlite3
+	rm -rf {{ settings.app_name }}/static/*

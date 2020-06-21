@@ -23,7 +23,7 @@ schema_view = get_schema_view(title=API_TITLE)
 
 urlpatterns = [
 {% for apps in installed_apps %}
-    url(r'^{{ apps.name }}/', include('{{ apps.name }}.urls')),
+    url(r'^', include('{{ apps.name }}.urls')),
 {% endfor %}
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^schema/$', schema_view),

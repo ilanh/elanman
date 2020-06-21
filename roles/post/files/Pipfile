@@ -7,9 +7,16 @@ name = "pypi"
 djangorestframework = "*"
 pygments = "*"
 django = "*"
-rest_framework = "*"
+dj_database_url = "*"
+whitenoise = "*"
+coreapi = "*"
+gunicorn = "*"
+Markdown = "*"
+PyYAML = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.8"

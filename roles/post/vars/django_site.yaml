@@ -21,11 +21,11 @@ model_classes:
 model_fields:
   - { class: '', name: '', type: '', value: '', orderby: false }
   - { class: 'Snippet', name: 'created', type: 'DateTimeField', value: 'auto_now_add=True', orderby: true }
-  - { class: 'Snippet', name: 'title', type: 'CharField', value: 'max_length=100, blank=True, default=""', orderby: false }
+  - { class: 'Snippet', name: 'title', type: 'CharField', value: "max_length=100, blank=True, default=''", orderby: false }
   - { class: 'Snippet', name: 'code', type: 'TextField', value: '', orderby: false }
   - { class: 'Snippet', name: 'linenos', type: 'BooleanField', value: 'default=False', orderby: false }
-  - { class: 'Snippet', name: 'language', type: 'CharField', value: 'choices=LANGUAGE_CHOICES, default="python", max_length=100', orderby: false }
-  - { class: 'Snippet', name: 'style', type: 'CharField', value: 'choices=STYLE_CHOICES, default="friendly", max_length=100', orderby: false }
+  - { class: 'Snippet', name: 'language', type: 'CharField', value: "choices=LANGUAGE_CHOICES, default='python', max_length=100", orderby: false }
+  - { class: 'Snippet', name: 'style', type: 'CharField', value: "choices=STYLE_CHOICES, default='friendly', max_length=100", orderby: false }
   - { class: 'Snippet', name: 'owner', type: 'ForeignKey', value: "'auth.User', related_name='snippets', on_delete=models.CASCADE", orderby: false }
   - { class: 'Snippet', name: 'highlighted', type: 'TextField', value: '', orderby: false }
 model_functions:
@@ -34,8 +34,8 @@ model_functions:
 model_func_consts:
   - { class: '', function: '', const: '', value: '' }
   - { class: 'Snippet', function: 'save', const: 'lexer', value: 'get_lexer_by_name(self.language)' }
-  - { class: 'Snippet', function: 'save', const: 'linenos', value: 'self.linenos and "table" or False' }
-  - { class: 'Snippet', function: 'save', const: 'options', value: 'self.title and {"title": self.title} or {}' }
+  - { class: 'Snippet', function: 'save', const: 'linenos', value: "self.linenos and 'table' or False" }
+  - { class: 'Snippet', function: 'save', const: 'options', value: "self.title and {'title': self.title} or {}" }
   - { class: 'Snippet', function: 'save', const: 'formatter', value: 'HtmlFormatter(style=self.style, linenos=linenos, full=True, **options)' }
   - { class: 'Snippet', function: 'save', const: 'self.highlighted', value: 'highlight(self.code, lexer, formatter)' }
 model_func_actions:
@@ -44,6 +44,9 @@ model_func_actions:
 view_imports:
   - { app: '', source: '', package: '' }
   - { app: 'snippets', source: 'django.contrib.auth.models', package: 'User' }
+  - { app: 'snippets', source: 'rest_framework', package: 'permissions, renderers, viewsets' }
+  - { app: 'snippets', source: 'rest_framework.decorators', package: 'action' }
+  - { app: 'snippets', source: 'rest_framework.response', package: 'Response' }
 view_consts:
   - { app: '', const: '', value: '' }
 view_classes:

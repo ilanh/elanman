@@ -11,6 +11,15 @@
     template:
       src: "manage.py.j2"
       dest: "{{ djangoDir }}/manage.py"
+      mode: '755'
+ 
+  - name: "deploy root files"
+    template:
+      src: "{{ item }}.j2"
+      dest: "{{ djangoDir }}/{{ item }}"
+    with_items:
+      - "Procfile"
+      - "Makefile"
 
   - name: "make sure app directory exists"
     file:
@@ -33,7 +42,6 @@
       dest: "{{ djangoDir }}/{{ item }}"
     with_items:
       - "Pipfile"
-      - "Makefile"
 
   - name: deploy app files
     include_tasks: mkapp.yaml
