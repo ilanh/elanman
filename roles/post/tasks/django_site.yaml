@@ -35,6 +35,7 @@
      - urls
      - wsgi
      - settings
+     - __init__
 
   - name: "copy django files"
     copy:

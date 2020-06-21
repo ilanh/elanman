@@ -11,6 +11,11 @@ from {{ installed.name }}.serializers import {{ installed.class_name }}Serialize
 {% for view_class in view_classes if view_class.app == installed.name %}
 
 class {{ view_class.class_name }}ViewSet(viewsets.ModelViewSet):
+    """
+    Returns a list of all **active** {{ installed.name }}.{{ view_class.class_name }} in the system.
+    For more details on how {{ view_class.class_name }} are activated please [see here][ref].
+    [ref]: http://localhost:8000/docs/#{{ installed.name }}
+    """
 {% for view_field in view_fields if view_field.class == view_class.class_name %}
     {{ view_field.name }} = {{ view_field.value }}
 {% endfor %}

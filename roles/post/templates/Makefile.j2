@@ -2,6 +2,9 @@ setup:
 	python -m pip install pipenv
 	pipenv install
 	pipenv run python manage.py makemigrations
+{% for apps in installed_apps %}
+	pipenv run python manage.py makemigrations {{ apps.name }}
+{% endfor %}
 	pipenv run python manage.py migrate
 
 setup_dev: setup
