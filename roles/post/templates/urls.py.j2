@@ -1,7 +1,8 @@
-"""{{ settings.app_name }} URL Configuration
+"""
+URL configuration for {{ settings.app_name }} project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+    https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -13,7 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.contrib import admin
+from django.urls import path
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
 
@@ -21,11 +23,14 @@ API_TITLE = '{{ settings.app_name }} API'
 API_DESCRIPTION = 'A Web API for creating and viewing {{ settings.app_desc }}'
 schema_view = get_schema_view(title=API_TITLE)
 
+## from django.conf.urls import include, url
+
 urlpatterns = [
 {% for apps in installed_apps %}
-    url(r'^', include('{{ apps.name }}.urls')),
+    path('{{ apps.name }}/', include('{{ apps.name }}.urls')),
 {% endfor %}
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^schema/$', schema_view),
-    url(r'^docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION))
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('schema/', schema_view),
+    path('docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION))
 ]
